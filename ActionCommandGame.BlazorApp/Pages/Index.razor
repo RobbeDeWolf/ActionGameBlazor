@@ -3,6 +3,7 @@
 @attribute [Authorize]
 
 <PageTitle>Index</PageTitle>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style>
 	.page {
@@ -10,4 +11,28 @@
 	}
 </style>
 
+<div class="w3-container" style="position: absolute; left: 130px; top: 90px; width: 290px" >
+	Health:
+	<div class="w3-light-grey w3-round w3-tiny progressbar">
+		<div class="w3-container w3-round w3-green" style="width:@Healthpoints%">@Healthpoints</div>
+	</div>
+	Soberness:
+	<div class="w3-light-grey w3-round w3-tiny progressbar">
+		<div class="w3-container w3-round w3-red" style="width: @Soberness%">@Soberness</div>
+	</div>
+	Energy:
+	<div class="w3-light-grey w3-round w3-tiny progressbar">
+		<div class="w3-container w3-round w3-yellow" style="width:@Energy%">@Energy</div>
+	</div>
+</div>
+
+@code{
+
+	private int Healthpoints { get; set; } = 100;
+	private int Soberness { get; set; } = 50;
+	private int Energy { get; set; } = 20;
+
+
+
+}
 
