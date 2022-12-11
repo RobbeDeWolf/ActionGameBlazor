@@ -1,0 +1,62 @@
+﻿@page "/signin"
+
+@using ActionCommandGame.Api.Authentication.Model
+@using ActionCommandGame.Sdk.Abstractions
+@using ActionCommandGame.BlazorApp.Providers
+@inject IIdentityApi IdentityApi
+@inject ITokenStore TokenStore
+@inject NavigationManager NavigationManager
+@inject TokenAuthenticationStateProvider AuthenticationStateProvider
+
+<h3>SignIn</h3>
+
+<EditForm Model="SignInRequest" OnValidSubmit="ValidSubmit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+    <div class="mb-3">
+        <label for="username" class="form-label">Email address</label>
+        <input type="email" class="form-control" 
+               id="username" aria-describedby="emailHelp"
+               @bind="@SignInRequest.Email">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1"
+               @bind="@SignInRequest.Password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; }
+
+    private UserSignInRequest SignInRequest { get; set; } = new UserSignInRequest();
+
+    private async Task ValidSubmit()
+    {
+        var result = await IdentityApi.SignInAsync(SignInRequest);
+
+        if (!result.Success || string.IsNullOrWhiteSpace(result.Token))
+        {
+            return;
+        }
+
+        //Save token in store
+        await TokenStore.SaveTokenAsync(result.Token);
+
+        //Login in to browser
+        AuthenticationStateProvider.NotifyAuthenticationStateChanged();
+
+        if (string.IsNullOrWhiteSpace(ReturnUrl))
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            NavigationManager.NavigateTo(ReturnUrl);
+        }
+    }
+}
