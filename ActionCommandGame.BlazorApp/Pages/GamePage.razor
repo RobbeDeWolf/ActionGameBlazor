@@ -2,6 +2,7 @@
 @attribute [Authorize]
 @inject IGameApi gameApi
 @inject IPlayerApi playerApi
+@inject NavigationManager navManager
 
 <PageTitle>Index</PageTitle>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -34,6 +35,9 @@ Money:
 <div>
 	<button class="btn btn-primary" @onclick="Drink">Drink!</button>
 </div>
+<div>
+	<button class="btn btn-primary" @onclick="ChangeCharacter">Change Character</button>
+</div>
 
 @code{
 	[Parameter]
@@ -47,9 +51,10 @@ Money:
 	public int Money { get; set; } = 0;
 
 	// Food stats
-	private int Food { get; set; } = 0;
+	private int Food { get; set; } = 0; // soberness
 	private int FoodPercentage { get; set; } = 0;
 	private int MaxFood { get; set; } = 0;
+	private bool isFood { get; set; }
 
 	// Attack stats
 	private int Attack { get; set; } = 0;
@@ -77,6 +82,11 @@ Money:
 		}
 	}
 
+	private void ChangeCharacter()
+	{
+		navManager.NavigateTo("/characters");
+	}
+
 	private async Task ShowStats()
 	{
 		var playerResult = await playerApi.GetAsync(playerId);
@@ -85,12 +95,16 @@ Money:
 		//check food
 		if (player.CurrentFuelId != null)
 		{
+			isFood = true;
 			Food = player.RemainingFuel;
 			MaxFood = player.TotalFuel;
 		}
 		else
 		{
-			Food = 70; // test
+			isFood = false;
+			Food = 0;
+			MaxFood = 0;
+	// test
 		}
 		// check Attack
 
