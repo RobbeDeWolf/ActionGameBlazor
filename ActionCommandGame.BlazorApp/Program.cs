@@ -22,6 +22,7 @@ builder.Services.AddSingleton(appSettings);
 
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddScoped<ITokenStore, TokenStore>();
+builder.Services.AddScoped<MemoryStore>();
 
 //Add Authorization
 builder.Services.AddAuthorizationCore();

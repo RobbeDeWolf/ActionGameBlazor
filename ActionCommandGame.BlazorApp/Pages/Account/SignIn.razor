@@ -72,11 +72,11 @@
 
         if (string.IsNullOrWhiteSpace(ReturnUrl))
         {
-            NavigationManager.NavigateTo("/");
+			NavigationManager.NavigateTo("/characters");
         }
         else
         {
-            NavigationManager.NavigateTo(ReturnUrl);
+			NavigationManager.NavigateTo("/characters");
         }
     }
 }

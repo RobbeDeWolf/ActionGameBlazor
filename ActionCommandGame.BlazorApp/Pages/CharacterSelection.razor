@@ -1,0 +1,76 @@
+﻿@page "/characters"
+@using Microsoft.AspNetCore.Authorization
+@using ActionCommandGame.Sdk.Abstractions
+@using ActionCommandGame.Services.Model.Core
+@using ActionCommandGame.Services.Model.Filters
+@using ActionCommandGame.Services.Model.Results
+@using ActionCommandGame.BlazorApp.Stores
+@inject IPlayerApi playerApi
+@inject NavigationManager navManager
+@inject MemoryStore memoryStore
+@attribute [Authorize]
+
+<PageTitle>Index</PageTitle>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+	.page {
+		background-image: url(../Images/Background_bar.jpg);
+	}
+</style>
+<div class="row">
+	<h1 style="text-align: center; color: white">Select a player</h1>
+</div>
+@if (players is not null)
+{
+	<div class="row">
+		<div class="col-2"></div>
+		@foreach (var player in players.Data)
+		{
+			string imagesource = $"../Images/player{player.Id}.png";
+
+			<div class="col-md-2">
+				<div class="card">
+					<img class="card-img-top smallimg mx-auto" src="@imagesource" alt="Card image cap" style=" height: 446px; width: auto; vertical-align: middle;">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Money: @player.Money</li>
+						<li class="list-group-item">Experience: @player.Experience</li>
+					</ul>
+					<div class="card-body">
+						<h5 class="card-title">@player.Name</h5>
+						<button class="btn btn-primary"@onclick="() => SelectPlayer(player.Id)">Play!</button>
+					</div>
+				</div>
+			</div>
+		}
+		<div class="col-2"></div>
+	</div>
+}
+
+
+@code
+{
+	public ServiceResult<IList<PlayerResult>> players { get; set; }
+	protected async override Task<Task> OnInitializedAsync()
+	{
+		var filter = new PlayerFilter { FilterUserPlayers = true };
+		players = await playerApi.Find(filter);
+
+		if (!players.Data.Any())
+		{
+			return null;
+		}
+		return base.OnInitializedAsync();
+	}
+
+	public void SelectPlayer(int id)
+	{
+		if (id == 0)
+		{
+			return;
+		}
+		memoryStore.CurrentPlayerId = id;
+		navManager.NavigateTo($"/character/{id}");
+
+	}
+}

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ActionCommandGame.Extensions\ActionCommandGame.Extensions.csproj" />
     <ProjectReference Include="..\ActionCommandGame.Sdk\ActionCommandGame.Sdk.csproj" />
   </ItemGroup>
 

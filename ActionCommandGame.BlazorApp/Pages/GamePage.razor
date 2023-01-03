@@ -1,0 +1,105 @@
+﻿@page "/character/{characterid}"
+@attribute [Authorize]
+@inject IGameApi gameApi
+@inject IPlayerApi playerApi
+
+<PageTitle>Index</PageTitle>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+	.page {
+		background-image: url(../Images/Background_bar.jpg);
+	}
+</style>
+
+<div class="w3-container" style="position: absolute; left: 130px; top: 90px; width: 290px" >
+	Health:
+	<div class="w3-light-grey w3-round w3-tiny progressbar">
+		<div class="w3-container w3-round w3-green" style="width:@Food%">@Food</div>
+	</div>
+	Soberness:
+	<div class="w3-light-grey w3-round w3-tiny progressbar">
+		<div class="w3-container w3-round w3-red" style="width: @Attack%">@Attack</div>
+	</div>
+	Energy:
+	<div class="w3-light-grey w3-round w3-tiny progressbar">
+		<div class="w3-container w3-round w3-yellow" style="width:@Defense%">@Defense</div>
+	</div>
+</div>
+Money:
+<div>
+	<p>@Money</p>
+</div>
+
+<div>
+	<button class="btn btn-primary" @onclick="Drink">Drink!</button>
+</div>
+
+@code{
+	[Parameter]
+	public string? characterid { get; set; }
+	public int playerId { get; set; }
+
+	// Player stats
+	public int playerlevel { get; set; } = 0;
+	public int playerExperience { get; set; } = 0;
+	public int playerExperienceForNextLevel { get; set; } = 0;
+	public int Money { get; set; } = 0;
+
+	// Food stats
+	private int Food { get; set; } = 0;
+	private int FoodPercentage { get; set; } = 0;
+	private int MaxFood { get; set; } = 0;
+
+	// Attack stats
+	private int Attack { get; set; } = 0;
+
+	// Defence stats
+	private int Defense { get; set; } = 0;
+
+	protected async override Task<Task> OnInitializedAsync()
+	{
+		if (characterid != null)
+		{
+			playerId = int.Parse(characterid);
+		}
+		await ShowStats();
+
+		return base.OnInitializedAsync();
+	}
+
+	private async Task Drink()
+	{
+		if (characterid != null)
+		{
+			var result = await gameApi.PerformActionAsync(playerId);
+			await ShowStats();
+		}
+	}
+
+	private async Task ShowStats()
+	{
+		var playerResult = await playerApi.GetAsync(playerId);
+		var player = playerResult.Data;
+
+		//check food
+		if (player.CurrentFuelId != null)
+		{
+			Food = player.RemainingFuel;
+			MaxFood = player.TotalFuel;
+		}
+		else
+		{
+			Food = 70; // test
+		}
+		// check Attack
+
+		// chack Defense
+
+		playerlevel = player.GetLevel();
+		playerExperience = player.Experience;
+		playerExperienceForNextLevel = player.GetExperienceForNextLevel();
+		Money = player.Money;
+	}
+
+}
