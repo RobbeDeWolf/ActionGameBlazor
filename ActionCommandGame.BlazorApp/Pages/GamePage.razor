@@ -26,6 +26,10 @@
 	<div class="w3-light-grey w3-round w3-tiny progressbar">
 		<div class="w3-container w3-round w3-yellow" style="width:@Defense%">@Defense</div>
 	</div>
+	Player Level: @playerlevel
+	<div class="w3-light-grey w3-round w3-tiny progressbar">
+		<div class="w3-container w3-round w3-yellow" style="width:@playerexperiencepercentage%">@playerExperience / @playerExperienceForNextLevel</div>
+	</div>
 </div>
 Money:
 <div>
@@ -39,15 +43,19 @@ Money:
 	<button class="btn btn-primary" @onclick="ChangeCharacter">Change Character</button>
 </div>
 
+<img src="@playerImageSource" alt="Card image cap" style=" height: 570px; width: auto; position: absolute; right: 130px; bottom:50px;">
+
 @code{
 	[Parameter]
 	public string? characterid { get; set; }
 	public int playerId { get; set; }
+	public string playerImageSource { get; set; }
 
 	// Player stats
 	public int playerlevel { get; set; } = 0;
 	public int playerExperience { get; set; } = 0;
 	public int playerExperienceForNextLevel { get; set; } = 0;
+	public int playerexperiencepercentage { get; set; }
 	public int Money { get; set; } = 0;
 
 	// Food stats
@@ -67,6 +75,7 @@ Money:
 		if (characterid != null)
 		{
 			playerId = int.Parse(characterid);
+			playerImageSource = $"../Images/player{playerId}.png";
 		}
 		await ShowStats();
 
@@ -78,6 +87,7 @@ Money:
 		if (characterid != null)
 		{
 			var result = await gameApi.PerformActionAsync(playerId);
+
 			await ShowStats();
 		}
 	}
@@ -108,11 +118,15 @@ Money:
 		}
 		// check Attack
 
-		// chack Defense
+		// check Defense
 
+		// check player experience
 		playerlevel = player.GetLevel();
 		playerExperience = player.Experience;
 		playerExperienceForNextLevel = player.GetExperienceForNextLevel();
+		playerexperiencepercentage = (playerExperience * 100) / playerExperienceForNextLevel;
+
+		// check money
 		Money = player.Money;
 	}
 
