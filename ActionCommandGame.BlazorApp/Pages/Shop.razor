@@ -1,10 +1,69 @@
 ﻿@page "/Shop/{characterid}"
 @using ActionCommandGame.Services.Model.Core
+@using ActionCommandGame.Services.Model.Results
 @attribute [Authorize]
 @inject NavigationManager navManager
+@inject IItemApi itemApi
+@inject IGameApi gameApi
+<style>
+	.page {
+		background-image: url(../Images/Shop.jpg);
+	}
+</style>
 
 <div style="position: absolute; right: 47px; top: 168px; width: 290px;">
 	<button class="shopbtn" @onclick="GoBackToGame">Back to game &nbsp;&nbsp;&nbsp;> </button>
+</div>
+
+<div class="tableFixHead">
+	<table>
+		<thead>
+		<tr>
+			<th>Item name</th>
+			<th>Description</th>
+			<th>Bonus</th>
+			<th>Price</th>
+			<th> </th>
+		</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in items)
+			{
+				<tr>
+					<td>@item.Name</td>
+					@if (!string.IsNullOrWhiteSpace(item.Description))
+					{
+						<td>@item.Description</td>
+					}
+					else
+					{
+						<td></td>
+					}
+					@if (item.Fuel > 0)
+					{
+						<td>Fuel: @item.Fuel</td>
+					}else if (item.Attack > 0)
+					{
+						<td>Attack: @item.Attack</td>
+					}else if (item.Defense > 0)
+					{
+						<td>Defense: @item.Defense</td>
+					}else if (item.ActionCooldownSeconds > 0)
+					{
+						<td>ActionCooldown: @item.ActionCooldownSeconds</td>
+					}
+					else
+					{
+						<td> </td>
+					}
+					<td>@item.Price</td>
+					<td>
+						<button class="btn btn-primary" @onclick="() => Buy(item.Id)">Buy</button>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>
 
 @code
@@ -12,8 +71,46 @@
 	[Parameter]
 	public string? characterid { get; set; }
 
+	private string boughtItem { get; set; }
+	private int priceBoughtItem { get; set; }
+
+	public IList<ItemResult> items { get; set; } = new List<ItemResult>();
+
+
+
+	protected override async Task<Task> OnInitializedAsync()
+	{
+		var shopItems = await itemApi.FindAsync();
+		foreach (var item in shopItems.Data)
+		{
+			items.Add(item);
+		}
+		return base.OnInitializedAsync();
+	}
+
 	private void GoBackToGame()
 	{
 		navManager.NavigateTo($"/character/{characterid}");
+	}
+
+	private async Task Buy(int itemId)
+	{
+		if (characterid == null)
+		{
+			return;
+		}
+		var result = await gameApi.BuyAsync(int.Parse(characterid), itemId);
+		if (result.IsSuccess)
+		{
+			boughtItem = result.Data.Item.Name;
+			priceBoughtItem = result.Data.Item.Price;
+		}
+		else
+		{
+			boughtItem = string.Empty;
+			priceBoughtItem = 0;
+			var errorMessages = result.Messages.Where(m => m.MessagePriority == MessagePriority.Error).ToList();
+
+		}
 	}
 }
