@@ -1,9 +1,19 @@
 ﻿@page "/Shop/{characterid}"
 @using ActionCommandGame.Services.Model.Core
 @attribute [Authorize]
+@inject NavigationManager navManager
+
+<div style="position: absolute; right: 47px; top: 168px; width: 290px;">
+	<button class="shopbtn" @onclick="GoBackToGame">Back to game &nbsp;&nbsp;&nbsp;> </button>
+</div>
 
 @code
 {
 	[Parameter]
 	public string? characterid { get; set; }
+
+	private void GoBackToGame()
+	{
+		navManager.NavigateTo($"/character/{characterid}");
+	}
 }
