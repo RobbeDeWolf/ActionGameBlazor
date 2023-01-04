@@ -1,4 +1,5 @@
 ﻿@page "/character/{characterid}"
+@using ActionCommandGame.Services.Model.Core
 @attribute [Authorize]
 @inject IGameApi gameApi
 @inject IPlayerApi playerApi
@@ -16,15 +17,15 @@
 <div class="w3-container" style="position: absolute; left: 130px; top: 90px; width: 290px" >
 	Health:
 	<div class="w3-light-grey w3-round w3-tiny progressbar">
-		<div class="w3-container w3-round w3-green" style="width:@Food%">@Food</div>
+		<div class="w3-container w3-round w3-green" style="width:@FoodPercentage%">@Food / @MaxFood</div>
 	</div>
 	Soberness:
 	<div class="w3-light-grey w3-round w3-tiny progressbar">
-		<div class="w3-container w3-round w3-red" style="width: @Attack%">@Attack</div>
+		<div class="w3-container w3-round w3-red" style="width: @AttackPercentage%">@Attack / @MaxAttack</div>
 	</div>
 	Energy:
 	<div class="w3-light-grey w3-round w3-tiny progressbar">
-		<div class="w3-container w3-round w3-yellow" style="width:@Defense%">@Defense</div>
+		<div class="w3-container w3-round w3-yellow" style="width:@DefensePercentage%">@Defense / @MaxDefense</div>
 	</div>
 	Player Level: @playerlevel
 	<div class="w3-light-grey w3-round w3-tiny progressbar">
@@ -33,11 +34,22 @@
 </div>
 Money:
 <div>
-	<p>@Money</p>
+	<p style="color: white">@Money</p>
 </div>
 
+@if (gameEventName is not null)
+{
+	<div class="box sb3">
+		<p>EventName: @gameEventName</p>
+		@if (!string.IsNullOrWhiteSpace(gameEventDescription))
+		{
+			<p>EventDescription: @gameEventDescription</p>
+		}
+	</div>
+}
+
 <div>
-	<button class="btn btn-primary" @onclick="Drink">Drink!</button>
+	<button class="btn btn-primary" @onclick="PerformAction">Drink!</button>
 </div>
 <div>
 	<button class="btn btn-primary" @onclick="ChangeCharacter">Change Character</button>
@@ -48,27 +60,40 @@ Money:
 @code{
 	[Parameter]
 	public string? characterid { get; set; }
+
 	public int playerId { get; set; }
 	public string playerImageSource { get; set; }
 
 	// Player stats
-	public int playerlevel { get; set; } = 0;
-	public int playerExperience { get; set; } = 0;
-	public int playerExperienceForNextLevel { get; set; } = 0;
+	public int playerlevel { get; set; }
+	public int playerExperience { get; set; }
+	public int playerExperienceForNextLevel { get; set; }
 	public int playerexperiencepercentage { get; set; }
-	public int Money { get; set; } = 0;
+	public int Money { get; set; }
 
 	// Food stats
-	private int Food { get; set; } = 0; // soberness
-	private int FoodPercentage { get; set; } = 0;
-	private int MaxFood { get; set; } = 0;
-	private bool isFood { get; set; }
+	private int Food { get; set; }// soberness
+	private int FoodPercentage { get; set; }
+	private int MaxFood { get; set; }
+	private bool IsFood { get; set; }
 
 	// Attack stats
-	private int Attack { get; set; } = 0;
+	private int Attack { get; set; }
+	private int AttackPercentage { get; set; }
+	private int MaxAttack { get; set; }
+	private bool IsAttack { get; set; }
 
-	// Defence stats
-	private int Defense { get; set; } = 0;
+	// Defense stats
+	private int Defense { get; set; }
+	private int DefensePercentage { get; set; }
+	private int MaxDefense { get; set; }
+	private bool IsDefense { get; set; }
+
+	// GameEvent
+	private IList<ServiceMessage> messages { get; set; }
+	private string gameEventName { get; set; }
+	private string gameEventDescription { get; set; }
+	private int MoneyAdded { get; set; }
 
 	protected async override Task<Task> OnInitializedAsync()
 	{
@@ -82,19 +107,45 @@ Money:
 		return base.OnInitializedAsync();
 	}
 
-	private async Task Drink()
+	private async Task PerformAction()
 	{
-		if (characterid != null)
+		if (characterid == null)
 		{
-			var result = await gameApi.PerformActionAsync(playerId);
-
-			await ShowStats();
+			return;
 		}
-	}
+		var result = await gameApi.PerformActionAsync(playerId);
+		var player = result.Data.Player;
+		var positiveGameEvent = result.Data.PositiveGameEvent;
+		var negativeGameEvent = result.Data.NegativeGameEvent;
 
-	private void ChangeCharacter()
-	{
-		navManager.NavigateTo("/characters");
+		if (positiveGameEvent != null)
+		{
+			gameEventName = positiveGameEvent.Name;
+			if (!string.IsNullOrWhiteSpace(positiveGameEvent.Description))
+			{
+				gameEventDescription = positiveGameEvent.Description;
+			}
+			if (positiveGameEvent.Money > 0)
+			{
+				MoneyAdded = positiveGameEvent.Money;
+			}
+			else
+			{
+				MoneyAdded = 0;
+			}
+		}
+		if (negativeGameEvent != null)
+		{
+			gameEventName = negativeGameEvent.Name;
+			if (!string.IsNullOrWhiteSpace(negativeGameEvent.Description))
+			{
+				gameEventDescription = negativeGameEvent.Description;
+			}
+			//result.Data.NegativeGameEventMessages
+		}
+		messages = result.Messages;
+
+		await ShowStats();
 	}
 
 	private async Task ShowStats()
@@ -105,20 +156,45 @@ Money:
 		//check food
 		if (player.CurrentFuelId != null)
 		{
-			isFood = true;
+			IsFood = true;
 			Food = player.RemainingFuel;
 			MaxFood = player.TotalFuel;
+			FoodPercentage = (Food * 100) / MaxFood;
 		}
 		else
 		{
-			isFood = false;
+			IsFood = false;
 			Food = 0;
 			MaxFood = 0;
-	// test
 		}
 		// check Attack
-
-		// check Defense
+		if (player.CurrentAttackId != null)
+		{
+			IsAttack = true;
+			Attack = player.RemainingAttack;
+			MaxAttack = player.TotalAttack;
+			AttackPercentage = (Attack * 100) / MaxAttack;
+		}
+		else
+		{
+			IsAttack = false;
+			Attack = 0;
+			MaxAttack = 0;
+		}
+	// check Defense
+		if (player.CurrentDefenseId != null)
+		{
+			IsDefense = true;
+			Defense = player.RemainingDefense;
+			MaxDefense = player.TotalDefense;
+			DefensePercentage = (Defense * 100) / MaxDefense;
+		}
+		else
+		{
+			IsDefense = false;
+			Defense = 0;
+			MaxDefense = 0;
+		}
 
 		// check player experience
 		playerlevel = player.GetLevel();
@@ -128,6 +204,10 @@ Money:
 
 		// check money
 		Money = player.Money;
+	}
+	private void ChangeCharacter()
+	{
+		navManager.NavigateTo("/characters");
 	}
 
 }

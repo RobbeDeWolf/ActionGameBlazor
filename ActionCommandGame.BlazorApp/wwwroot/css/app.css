@@ -105,3 +105,28 @@ a, .btn-link {
     background-image: url(../Images/Login_wallpaper.jpg);
     background-size: cover;
 }
+.box {
+    width: 300px;
+    margin: 50px auto;
+    background: #00bfb6;
+    padding: 20px;
+    text-align: center;
+    font-weight: 900;
+    color: #fff;
+    font-family: arial;
+    position: absolute;
+    left: 823px;
+    top: 123px;
+}
+.sb3:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid #00bfb6;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #00bfb6;
+    border-bottom: 10px solid transparent;
+    left: 19px;
+    bottom: -19px;
+}
