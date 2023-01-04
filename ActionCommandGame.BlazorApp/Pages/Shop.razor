@@ -5,6 +5,7 @@
 @inject NavigationManager navManager
 @inject IItemApi itemApi
 @inject IGameApi gameApi
+@inject IPlayerApi playerApi
 <style>
 	.page {
 		background-image: url(../Images/Shop.jpg);
@@ -14,7 +15,14 @@
 <div style="position: absolute; right: 47px; top: 168px; width: 290px;">
 	<button class="shopbtn" @onclick="GoBackToGame">Back to game &nbsp;&nbsp;&nbsp;> </button>
 </div>
-
+@if (!string.IsNullOrWhiteSpace(boughtItem))
+{
+	<div class="alert alert-success">You bought @boughtItem for the price of @priceBoughtItem</div>
+}
+@if (purchaseFailed)
+{
+	<div class="alert alert-danger">Purchase failed... check your balance</div>
+}
 <div class="tableFixHead">
 	<table>
 		<thead>
@@ -27,44 +35,49 @@
 		</tr>
 		</thead>
 		<tbody>
-			@foreach (var item in items)
-			{
-				<tr>
-					<td>@item.Name</td>
-					@if (!string.IsNullOrWhiteSpace(item.Description))
-					{
-						<td>@item.Description</td>
-					}
-					else
-					{
-						<td></td>
-					}
-					@if (item.Fuel > 0)
-					{
-						<td>Fuel: @item.Fuel</td>
-					}else if (item.Attack > 0)
-					{
-						<td>Attack: @item.Attack</td>
-					}else if (item.Defense > 0)
-					{
-						<td>Defense: @item.Defense</td>
-					}else if (item.ActionCooldownSeconds > 0)
-					{
-						<td>ActionCooldown: @item.ActionCooldownSeconds</td>
-					}
-					else
-					{
-						<td> </td>
-					}
-					<td>@item.Price</td>
-					<td>
-						<button class="btn btn-primary" @onclick="() => Buy(item.Id)">Buy</button>
-					</td>
-				</tr>
-			}
+		@foreach (var item in items)
+		{
+			<tr>
+				<td>@item.Name</td>
+				@if (!string.IsNullOrWhiteSpace(item.Description))
+				{
+					<td>@item.Description</td>
+				}
+				else
+				{
+					<td></td>
+				}
+				@if (item.Fuel > 0)
+				{
+					<td>Fuel: @item.Fuel</td>
+				}else if (item.Attack > 0)
+				{
+					<td>Attack: @item.Attack</td>
+				}else if (item.Defense > 0)
+				{
+					<td>Defense: @item.Defense</td>
+				}else if (item.ActionCooldownSeconds > 0)
+				{
+					<td>ActionCooldown: @item.ActionCooldownSeconds</td>
+				}
+				else
+				{
+					<td> </td>
+				}
+				<td>@item.Price</td>
+				<td>
+					<button class="btn btn-primary" @onclick="() => Buy(item.Id)">Buy</button>
+				</td>
+			</tr>
+		}
 		</tbody>
 	</table>
 </div>
+<div style="background-color: white; position: absolute; right: 130px; bottom: 150px;">
+	Money:
+	@playerMoney
+</div>
+<img src="@playerImageSource" alt="Card image cap" style=" height: 570px; width: auto; position: absolute; right: 130px; bottom:50px;">
 
 @code
 {
@@ -73,6 +86,9 @@
 
 	private string boughtItem { get; set; }
 	private int priceBoughtItem { get; set; }
+	private bool purchaseFailed = false;
+	private int playerMoney { get; set; }
+	private string playerImageSource { get; set; }
 
 	public IList<ItemResult> items { get; set; } = new List<ItemResult>();
 
@@ -84,6 +100,13 @@
 		foreach (var item in shopItems.Data)
 		{
 			items.Add(item);
+		}
+		if (characterid != null)
+		{
+			var playerResult = await playerApi.GetAsync(int.Parse(characterid));
+			var player = playerResult.Data;
+			playerImageSource = $"../Images/player{player.Id}.png";
+			playerMoney = player.Money;
 		}
 		return base.OnInitializedAsync();
 	}
@@ -104,11 +127,24 @@
 		{
 			boughtItem = result.Data.Item.Name;
 			priceBoughtItem = result.Data.Item.Price;
+			playerMoney = result.Data.Player.Money;
+			StateHasChanged();
+			await Task.Delay(3000);
+
+			boughtItem = string.Empty;
+			priceBoughtItem = 0;
+			StateHasChanged();
+
 		}
 		else
 		{
+			purchaseFailed = true;
 			boughtItem = string.Empty;
 			priceBoughtItem = 0;
+			StateHasChanged();
+			await Task.Delay(3000);
+			purchaseFailed = false;
+			StateHasChanged();
 			var errorMessages = result.Messages.Where(m => m.MessagePriority == MessagePriority.Error).ToList();
 
 		}
