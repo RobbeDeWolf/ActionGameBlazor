@@ -1,0 +1,9 @@
+﻿@page "/Shop/{characterid}"
+@using ActionCommandGame.Services.Model.Core
+@attribute [Authorize]
+
+@code
+{
+	[Parameter]
+	public string? characterid { get; set; }
+}

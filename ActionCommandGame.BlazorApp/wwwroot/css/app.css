@@ -130,3 +130,15 @@ a, .btn-link {
     left: 19px;
     bottom: -19px;
 }
+.shopbtn {
+    margin-top: 2vw;
+    background-color: #DAA521;
+    border: none;
+    width: 15vw;
+    height: 3vw;
+    font-size: 1.5vw;
+    color: #FFFFFF;
+    border-radius: 0.5vw;
+    font-weight: bold;
+    cursor: pointer;
+}

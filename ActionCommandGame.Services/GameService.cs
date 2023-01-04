@@ -76,7 +76,7 @@ namespace ActionCommandGame.Services
                     await _database.SaveChangesAsync();
 
                     var waitSeconds = Math.Ceiling(cooldownSeconds - elapsedSeconds);
-                    var waitText = $"You are still a bit tired. You have to wait another {waitSeconds} seconds.";
+                    var waitText = $"You are still drinking! wait {waitSeconds} seconds. You can buy Food to reduce the cooldown.";
                     playerResult = await _playerService.GetAsync(playerId, authenticatedUserId);
                     return new ServiceResult<GameResult>
                     {

@@ -40,10 +40,10 @@ Money:
 @if (gameEventName is not null)
 {
 	<div class="box sb3">
-		<p>EventName: @gameEventName</p>
+		<p>@gameEventName</p>
 		@if (!string.IsNullOrWhiteSpace(gameEventDescription))
 		{
-			<p>EventDescription: @gameEventDescription</p>
+			<p>@gameEventDescription</p>
 		}
 	</div>
 	foreach (var message in messages)
@@ -62,6 +62,9 @@ Money:
 </div>
 <div>
 	<button class="btn btn-primary" @onclick="ChangeCharacter">Change Character</button>
+</div>
+<div style="position: absolute; right: 47px; top: 168px; width: 290px; transform: rotate(23deg);">
+	<button class="shopbtn" @onclick="OpenShop"> Visit shop &nbsp;&nbsp;&nbsp;> </button>
 </div>
 
 <img src="@playerImageSource" alt="Card image cap" style=" height: 570px; width: auto; position: absolute; right: 130px; bottom:50px;">
@@ -217,6 +220,11 @@ Money:
 	private void ChangeCharacter()
 	{
 		navManager.NavigateTo("/characters");
+	}
+
+	private void OpenShop()
+	{
+		navManager.NavigateTo($"/Shop/{playerId}");
 	}
 
 }
