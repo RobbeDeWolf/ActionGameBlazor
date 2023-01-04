@@ -46,6 +46,15 @@ Money:
 			<p>EventDescription: @gameEventDescription</p>
 		}
 	</div>
+	foreach (var message in messages)
+	{
+		if (message.Code =="Cooldown")
+		{
+			<div class="box sb3">
+				<p>@message.Message</p>
+			</div>
+		}
+	}
 }
 
 <div>
