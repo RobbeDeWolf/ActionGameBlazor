@@ -24,7 +24,12 @@ var app = builder.Build();
 
 //Initialize dbContext data
 
-var dbContext = app.Services.GetRequiredService<ActionCommandGameDbContext>();
+
+using var scope = app.Services.CreateScope();
+var dbContext = scope.ServiceProvider.GetRequiredService<ActionCommandGameDbContext>();
+
+//Run once to migrate DBContent from InMemory to SQL
+//dbContext.Initialize();
 if (dbContext.Database.IsInMemory())
 {
     dbContext.Initialize();

@@ -15,8 +15,8 @@ namespace ActionCommandGame.Api.Installers
             {
                 options.UseLoggerFactory(ConsoleLoggerFactory);
                 options.EnableSensitiveDataLogging();
-                options.UseInMemoryDatabase("InMemoryDb");
-            }, ServiceLifetime.Singleton, ServiceLifetime.Singleton);
+				options.UseSqlServer(@"server = (localdb)\MSSQLLocalDB; database = DrinkActionCommandGame; Trusted_Connection = True");
+			});
         }
     }
 }
