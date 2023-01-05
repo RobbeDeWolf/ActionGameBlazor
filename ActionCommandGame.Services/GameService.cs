@@ -228,8 +228,8 @@ namespace ActionCommandGame.Services
 
                     //Load a new Fuel Item from inventory
                     var newFuelItem = _database.PlayerItems
-                        .Where(pi => pi.PlayerId == player.Id && pi.Item.Fuel > 0)
-                        .OrderByDescending(pi => pi.Item.Fuel).FirstOrDefault();
+                        .Where(pi => pi.PlayerId == player.Id && pi.Item.Fuel > 0).Include(p => p.Item)
+						.OrderByDescending(pi => pi.Item.Fuel).FirstOrDefault();
 
                     if (newFuelItem != null)
                     {
@@ -266,7 +266,7 @@ namespace ActionCommandGame.Services
 
                     //Load a new Attack Item from inventory
                     var newAttackItem = _database.PlayerItems
-                        .Where(pi => pi.PlayerId == player.Id && pi.Item.Attack > 0)
+                        .Where(pi => pi.PlayerId == player.Id && pi.Item.Attack > 0).Include(p =>p.Item)
                         .OrderByDescending(pi => pi.Item.Attack).FirstOrDefault();
                     if (newAttackItem != null)
                     {
@@ -309,8 +309,8 @@ namespace ActionCommandGame.Services
 
                     //Load a new Defense Item from inventory
                     var newDefenseItem = _database.PlayerItems
-                        .Where(pi => pi.PlayerId == player.Id && pi.Item.Defense > 0)
-                        .OrderByDescending(pi => pi.Item.Defense).FirstOrDefault();
+                        .Where(pi => pi.PlayerId == player.Id && pi.Item.Defense > 0).Include(p => p.Item)
+						.OrderByDescending(pi => pi.Item.Defense).FirstOrDefault();
                     
                     if (newDefenseItem != null)
                     {
