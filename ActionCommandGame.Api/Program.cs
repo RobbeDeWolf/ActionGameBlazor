@@ -30,6 +30,7 @@ var dbContext = scope.ServiceProvider.GetRequiredService<ActionCommandGameDbCont
 
 //Run once to migrate DBContent from InMemory to SQL
 //dbContext.Initialize();
+
 if (dbContext.Database.IsInMemory())
 {
     dbContext.Initialize();

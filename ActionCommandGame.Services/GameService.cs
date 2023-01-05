@@ -46,7 +46,7 @@ namespace ActionCommandGame.Services
         {
             //Check Cooldown
             var player = await _database.Players
-                .Include(p => p.CurrentFuelPlayerItem.Item)
+                .Include(p => p.CurrentFuelPlayerItem.Item).Include(p => p.CurrentAttackPlayerItem.Item).Include(p => p.CurrentDefensePlayerItem.Item)
                 .SingleOrDefaultAsync(p => p.Id == playerId);
 
             ServiceResult<PlayerResult> playerResult;
