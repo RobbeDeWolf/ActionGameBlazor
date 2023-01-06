@@ -16,20 +16,20 @@
 
 <div class="w3-container" style="position: absolute; left: 130px; top: 90px; width: 290px" >
 	Energy:
-	<div class="w3-light-grey w3-round w3-tiny progressbar">
-		<div class="w3-container w3-round w3-green" style="width:@FoodPercentage%">@Food / @MaxFood</div>
+	<div class="w3-light-grey w3-round w3-tiny progressbar" title="@Food / @MaxFood">
+		<div class="w3-container w3-round w3-green" style="height: 10px; width:@FoodPercentage%"></div>
 	</div>
 	Soberness:
-	<div class="w3-light-grey w3-round w3-tiny progressbar">
-		<div class="w3-container w3-round w3-red" style="width: @AttackPercentage%">@Attack / @MaxAttack</div>
+	<div class="w3-light-grey w3-round w3-tiny progressbar" title="@Attack / @MaxAttack">
+		<div class="w3-container w3-round w3-red" style="height: 10px; width: @AttackPercentage%"></div>
 	</div>
 	Reputation:
-	<div class="w3-light-grey w3-round w3-tiny progressbar">
-		<div class="w3-container w3-round w3-yellow" style="width:@DefensePercentage%">@Defense / @MaxDefense</div>
+	<div class="w3-light-grey w3-round w3-tiny progressbar" title="@Defense / @MaxDefense">
+		<div class="w3-container w3-round w3-yellow" style="height: 10px; width:@DefensePercentage%"></div>
 	</div>
 	Player Level: @playerlevel
-	<div class="w3-light-grey w3-round w3-tiny progressbar">
-		<div class="w3-container w3-round w3-yellow" style="width:@playerexperiencepercentage%">@playerExperience / @playerExperienceForNextLevel</div>
+	<div class="w3-light-grey w3-round w3-tiny progressbar" title="@playerExperience / @playerExperienceForNextLevel">
+		<div class="w3-container w3-round w3-yellow" style="height: 10px; width:@playerexperiencepercentage%"></div>
 	</div>
 </div>
 Money:
@@ -57,9 +57,12 @@ Money:
 	}
 }
 
-<div>
-	<button class="btn btn-primary" @onclick="PerformAction">Drink!</button>
+<div style="position: absolute; left: 50%;transform: translateX(-50%); bottom: 269px; width: auto;">
+	<button @onclick="PerformAction" style="border: none;cursor: pointer;appearance: none;background-color: inherit;">
+		<img style="height:62px; width: auto" src="../Images/Button_Drink.png" alt="Drink Button">
+	</button>
 </div>
+
 <div>
 	<button class="btn btn-primary" @onclick="ChangeCharacter">Change Character</button>
 </div>
@@ -110,7 +113,7 @@ Money:
 	private string gameEventName { get; set; }
 	private string gameEventDescription { get; set; }
 	private int MoneyAdded { get; set; }
-	private bool LevelUpPopup { get; set; }
+	private bool LevelUpPopup = false;
 
 	protected async override Task<Task> OnInitializedAsync()
 	{
@@ -169,7 +172,7 @@ Money:
 			//result.Data.NegativeGameEventMessages
 		}
 		messages = result.Messages;
-		checkLevelUp(messages);
+		await checkLevelUp(messages);
 
 		await ShowStats();
 	}
@@ -249,7 +252,7 @@ Money:
 			{
 				LevelUpPopup = true;
 				StateHasChanged();
-				Task.Delay(2000);
+				await Task.Delay(2000);
 				LevelUpPopup = false;
 				StateHasChanged();
 			}
