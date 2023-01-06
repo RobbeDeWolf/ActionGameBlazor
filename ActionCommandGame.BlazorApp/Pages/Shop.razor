@@ -120,7 +120,7 @@
 		{
 			var playerResult = await playerApi.GetAsync(int.Parse(characterid));
 			var player = playerResult.Data;
-			playerImageSource = $"../Images/player{player.Id}.png";
+			playerImageSource = $"../Images/player{player.Name}.png";
 			playerMoney = player.Money;
 		}
 		return base.OnInitializedAsync();

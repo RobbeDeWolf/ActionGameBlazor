@@ -64,5 +64,27 @@ namespace ActionCommandGame.Sdk
 
             return result;
         }
+
+        public async Task<ServiceResult<PlayerResult>> Create(PlayerResult playerRequest)
+        {
+			var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
+			var token = await _tokenStore.GetTokenAsync();
+			httpClient.AddAuthorization(token);
+			var route = "players";
+
+			var httpResponse = await httpClient.PostAsJsonAsync(route, playerRequest);
+            httpResponse.EnsureSuccessStatusCode();
+
+            var result = await httpResponse.Content.ReadFromJsonAsync<ServiceResult<PlayerResult>>();
+
+            if (result is null)
+            {
+	            return new ServiceResult<PlayerResult>();
+            }
+
+            return result;
+
+        }
+
     }
 }

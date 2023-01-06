@@ -128,7 +128,6 @@
 		if (characterid != null)
 		{
 			playerId = int.Parse(characterid);
-			playerImageSource = $"../Images/player{playerId}.png";
 		}
 		await ShowStats();
 
@@ -238,6 +237,8 @@
 		playerExperience = player.Experience;
 		playerExperienceForNextLevel = player.GetExperienceForNextLevel();
 		playerexperiencepercentage = (playerExperience * 100) / playerExperienceForNextLevel;
+
+		playerImageSource = $"../Images/player{player.Name}.png";
 
 		// check money
 		Money = player.Money;

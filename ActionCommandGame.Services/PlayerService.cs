@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ActionCommandGame.Model;
 using ActionCommandGame.Repository;
 using ActionCommandGame.Services.Abstractions;
 using ActionCommandGame.Services.Extensions;
@@ -39,5 +40,22 @@ namespace ActionCommandGame.Services
 
             return new ServiceResult<IList<PlayerResult>>(players);
         }
-    }
+
+        public async Task<ServiceResult<PlayerResult>>CreateAsync(PlayerResult player, string authenticatedUserId)
+        {
+	        var dbPlayer = new Player
+	        {
+		        Name = player.Name,
+		        Money = player.Money,
+		        Experience = player.Experience,
+		        UserId = authenticatedUserId
+	        };
+
+            _database.Players.Add(dbPlayer);
+            await _database.SaveChangesAsync();
+
+            return await GetAsync(dbPlayer.Id, authenticatedUserId);
+        }
+
+	}
 }

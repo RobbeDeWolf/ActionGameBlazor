@@ -27,7 +27,7 @@
 		<div class="col-2"></div>
 		@foreach (var player in players.Data)
 		{
-			string imagesource = $"../Images/player{player.Id}.png";
+			string imagesource = $"../Images/player{player.Name}.png";
 
 			<div class="col-md-2">
 				<div class="card">
@@ -58,7 +58,8 @@
 
 		if (!players.Data.Any())
 		{
-			return null;
+			await LoadDefaults();
+			players = await playerApi.Find(filter);
 		}
 		return base.OnInitializedAsync();
 	}
@@ -72,5 +73,37 @@
 		memoryStore.CurrentPlayerId = id;
 		navManager.NavigateTo($"/character/{id}");
 
+	}
+
+	private async Task LoadDefaults()
+	{
+		var Frank = new PlayerResult
+		{
+			Name = "Frank Booze",
+			Money = 100
+		};
+		var Marie = new PlayerResult
+		{
+			Name = "Marie Shots",
+			Money = 1000,
+			Experience = 200
+		};
+		var Jack = new PlayerResult
+		{
+			Name = "Jack Wasted",
+			Money = 500,
+			Experience = 5
+		};
+		var Julie = new PlayerResult
+		{
+			Name = "Julie Baller",
+			Money = 12345,
+			Experience = 2000
+		};
+
+		await playerApi.Create(Frank);
+		await playerApi.Create(Marie);
+		await playerApi.Create(Jack);
+		await playerApi.Create(Julie);
 	}
 }
