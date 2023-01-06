@@ -14,27 +14,32 @@
 	}
 </style>
 
-<div class="w3-container" style="position: absolute; left: 130px; top: 90px; width: 290px" >
-	Energy:
-	<div class="w3-light-grey w3-round w3-tiny progressbar" title="@Food / @MaxFood">
-		<div class="w3-container w3-round w3-green" style="height: 10px; width:@FoodPercentage%"></div>
+<div style="position: absolute; left: 45px; top: 267px; width: 223px">
+	<span class="progressbarheader">Energy:</span>
+	<div title="@Food / @MaxFood">
+		<img style="height: 30px; width: auto" src="../Images/Loading_Bar_Large.png" alt="Drink Button">
+		<div class="w3-container w3-round w3-green psbar" style="width: @FoodPercentage%;"></div>
 	</div>
-	Soberness:
-	<div class="w3-light-grey w3-round w3-tiny progressbar" title="@Attack / @MaxAttack">
-		<div class="w3-container w3-round w3-red" style="height: 10px; width: @AttackPercentage%"></div>
+	<span class="progressbarheader">Soberness:</span>
+	<div title="@Attack / @MaxAttack">
+		<img style="height: 30px; width: auto" src="../Images/Loading_Bar_Large.png" alt="Drink Button">
+		<div class="w3-container w3-round w3-red psbar" style="width: @AttackPercentage%;"></div>
 	</div>
-	Reputation:
-	<div class="w3-light-grey w3-round w3-tiny progressbar" title="@Defense / @MaxDefense">
-		<div class="w3-container w3-round w3-yellow" style="height: 10px; width:@DefensePercentage%"></div>
+	<span class="progressbarheader">Reputation:</span>
+	<div title="@Defense / @MaxDefense">
+		<img style="height: 30px; width: auto" src="../Images/Loading_Bar_Large.png" alt="Drink Button">
+		<div class="w3-container w3-round w3-yellow psbar" style="width: @DefensePercentage%;"></div>
 	</div>
-	Player Level: @playerlevel
-	<div class="w3-light-grey w3-round w3-tiny progressbar" title="@playerExperience / @playerExperienceForNextLevel">
-		<div class="w3-container w3-round w3-yellow" style="height: 10px; width:@playerexperiencepercentage%"></div>
+	<span class="progressbarheader">Player Level: @playerlevel</span>
+	<div title="@playerExperience / @playerExperienceForNextLevel">
+		<img style="height: 30px; width: auto" src="../Images/Loading_Bar_Large.png" alt="Drink Button">
+		<div class="w3-container w3-round w3-yellow psbar" style="width: @playerexperiencepercentage%;"></div>
 	</div>
 </div>
-Money:
-<div>
-	<p style="color: white">@Money</p>
+
+<div style="position: absolute; left: 51px; bottom: 364px;">
+	<img style="height: 38px; width: auto" src="../Images/Money.png" alt="Drink Button">
+	<span style="position: absolute; bottom: 10px; right: 12px;">@Money</span>
 </div>
 
 @if (messages is not null)
@@ -67,7 +72,9 @@ Money:
 	<button class="btn btn-primary" @onclick="ChangeCharacter">Change Character</button>
 </div>
 <div style="position: absolute; right: 47px; top: 168px; width: 290px; transform: rotate(23deg);">
-	<button class="shopbtn" @onclick="OpenShop"> Visit shop &nbsp;&nbsp;&nbsp;> </button>
+	<button class="shopbtn" @onclick="OpenShop">
+		<img style="height:90px; width: auto" src="../Images/Button_Shop_Large.png" alt="Drink Button">
+	</button>
 </div>
 @if (LevelUpPopup)
 {

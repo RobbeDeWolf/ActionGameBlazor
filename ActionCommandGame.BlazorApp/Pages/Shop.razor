@@ -13,8 +13,11 @@
 </style>
 
 <div style="position: absolute; right: 47px; top: 168px; width: 290px;">
-	<button class="shopbtn" @onclick="GoBackToGame">Back to game &nbsp;&nbsp;&nbsp;> </button>
+	<button class="shopbtn" @onclick="GoBackToGame">
+		<img style="height:90px; width: auto" src="../Images/Button_Shop_Back.png" alt="Drink Button">
+	</button>
 </div>
+
 @if (!string.IsNullOrWhiteSpace(boughtItem))
 {
 	<div class="alert alert-success">You bought @boughtItem for the price of @priceBoughtItem</div>
@@ -51,20 +54,20 @@
 				@if (item.Fuel > 0)
 				{
 					
-						@if (item.ActionCooldownSeconds > 0)
-						{
-							<td><span class="ShopBonus">Energy:</span><br/><span class="ShopBonus">Cooldown:</span></td>
-							<td>@item.Fuel <br />@item.ActionCooldownSeconds</td>
-						}
-						else
-						{
-							<td><span class="ShopBonus">Energy:</span></td>
-							<td>@item.Fuel</td>
-						}
+					@if (item.ActionCooldownSeconds > 0)
+					{
+						<td><span class="ShopBonus">Energy:</span><br/><span class="ShopBonus">Cooldown:</span></td>
+						<td>@item.Fuel <br />@item.ActionCooldownSeconds</td>
+					}
+					else
+					{
+						<td><span class="ShopBonus">Energy:</span></td>
+						<td>@item.Fuel</td>
+					}
 				}else if (item.Attack > 0)
 				{
 					<td><span class="ShopBonus">Soberness:</span></td>
-						<td>@item.Attack</td>
+					<td>@item.Attack</td>
 				}else if (item.Defense > 0)
 				{
 					<td><span class="ShopBonus">Reputation:</span></td>
@@ -84,8 +87,10 @@
 		</tbody>
 	</table>
 </div>
-<div style="position: fixed;bottom: 10%;left: 50%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%); background-color: white">
-	Money: @playerMoney
+
+<div style="position: fixed; bottom: 8%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
+	<img style="height: 55px; width: auto" src="../Images/Money.png" alt="Drink Button">
+	<span style=" position: absolute; bottom: 16px; right: 17px;">@playerMoney</span>
 </div>
 <img src="@playerImageSource" alt="Card image cap" style=" height: 570px; width: auto; position: absolute; right: 130px; bottom:50px;">
 

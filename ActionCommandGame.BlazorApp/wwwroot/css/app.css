@@ -131,16 +131,7 @@ a, .btn-link {
     bottom: -19px;
 }
 .shopbtn {
-    margin-top: 2vw;
-    background-color: #DAA521;
-    border: none;
-    width: 15vw;
-    height: 3vw;
-    font-size: 1.5vw;
-    color: #FFFFFF;
-    border-radius: 0.5vw;
-    font-weight: bold;
-    cursor: pointer;
+    border: none;cursor: pointer;appearance: none;background-color: inherit;
 }
 
 .tableFixHead {
@@ -197,4 +188,16 @@ th {
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+
+.progressbarheader {
+    display: inline-block;
+    color: white;
+    margin-bottom: 6px;
+}
+.psbar {
+    height: 12px;
+    position: relative;
+    bottom: 22px;
+    left: 8px;
 }
