@@ -30,6 +30,7 @@
 			<th>Item name</th>
 			<th>Description</th>
 			<th>Bonus</th>
+			<th> </th>
 			<th>Price</th>
 			<th> </th>
 		</tr>
@@ -49,19 +50,29 @@
 				}
 				@if (item.Fuel > 0)
 				{
-					<td>Fuel: @item.Fuel</td>
+					
+						@if (item.ActionCooldownSeconds > 0)
+						{
+							<td><span class="ShopBonus">Energy:</span><br/><span class="ShopBonus">Cooldown:</span></td>
+							<td>@item.Fuel <br />@item.ActionCooldownSeconds</td>
+						}
+						else
+						{
+							<td><span class="ShopBonus">Energy:</span></td>
+							<td>@item.Fuel</td>
+						}
 				}else if (item.Attack > 0)
 				{
-					<td>Attack: @item.Attack</td>
+					<td><span class="ShopBonus">Soberness:</span></td>
+						<td>@item.Attack</td>
 				}else if (item.Defense > 0)
 				{
-					<td>Defense: @item.Defense</td>
-				}else if (item.ActionCooldownSeconds > 0)
-				{
-					<td>ActionCooldown: @item.ActionCooldownSeconds</td>
+					<td><span class="ShopBonus">Reputation:</span></td>
+					<td>@item.Defense</td>
 				}
 				else
 				{
+					<td> </td>
 					<td> </td>
 				}
 				<td>@item.Price</td>

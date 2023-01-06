@@ -185,3 +185,16 @@ th {
     border-color: rgba(220, 53, 69, 1);
     color: rgba(114, 28, 36,1);
 }
+.ShopBonus {
+    font-weight: bold;
+}
+
+.LevelupPopup {
+    height: 570px;
+    width: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}

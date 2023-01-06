@@ -15,7 +15,7 @@
 </style>
 
 <div class="w3-container" style="position: absolute; left: 130px; top: 90px; width: 290px" >
-	Health:
+	Energy:
 	<div class="w3-light-grey w3-round w3-tiny progressbar">
 		<div class="w3-container w3-round w3-green" style="width:@FoodPercentage%">@Food / @MaxFood</div>
 	</div>
@@ -23,7 +23,7 @@
 	<div class="w3-light-grey w3-round w3-tiny progressbar">
 		<div class="w3-container w3-round w3-red" style="width: @AttackPercentage%">@Attack / @MaxAttack</div>
 	</div>
-	Energy:
+	Reputation:
 	<div class="w3-light-grey w3-round w3-tiny progressbar">
 		<div class="w3-container w3-round w3-yellow" style="width:@DefensePercentage%">@Defense / @MaxDefense</div>
 	</div>
@@ -66,6 +66,10 @@ Money:
 <div style="position: absolute; right: 47px; top: 168px; width: 290px; transform: rotate(23deg);">
 	<button class="shopbtn" @onclick="OpenShop"> Visit shop &nbsp;&nbsp;&nbsp;> </button>
 </div>
+@if (LevelUpPopup)
+{
+	<img class="LevelupPopup" src="../Images/LevelUp.png" alt="levelup img">
+}
 
 <img src="@playerImageSource" alt="Card image cap" style=" height: 570px; width: auto; position: absolute; right: 130px; bottom:50px;">
 
@@ -106,6 +110,7 @@ Money:
 	private string gameEventName { get; set; }
 	private string gameEventDescription { get; set; }
 	private int MoneyAdded { get; set; }
+	private bool LevelUpPopup { get; set; }
 
 	protected async override Task<Task> OnInitializedAsync()
 	{
@@ -137,6 +142,10 @@ Money:
 			{
 				gameEventDescription = positiveGameEvent.Description;
 			}
+			else
+			{
+				gameEventDescription = string.Empty;
+			}
 			if (positiveGameEvent.Money > 0)
 			{
 				MoneyAdded = positiveGameEvent.Money;
@@ -153,9 +162,14 @@ Money:
 			{
 				gameEventDescription = negativeGameEvent.Description;
 			}
+			else
+			{
+				gameEventDescription = string.Empty;
+			}
 			//result.Data.NegativeGameEventMessages
 		}
 		messages = result.Messages;
+		checkLevelUp(messages);
 
 		await ShowStats();
 	}
@@ -227,4 +241,18 @@ Money:
 		navManager.NavigateTo($"/Shop/{playerId}");
 	}
 
+	private async Task checkLevelUp(IList<ServiceMessage> messages )
+	{
+		foreach (var message in messages)
+		{
+			if (message.Code == "LevelUp")
+			{
+				LevelUpPopup = true;
+				StateHasChanged();
+				Task.Delay(2000);
+				LevelUpPopup = false;
+				StateHasChanged();
+			}
+		}
+	}
 }

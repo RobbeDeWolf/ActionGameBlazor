@@ -63,86 +63,82 @@ namespace ActionCommandGame.Repository
                 Price = 10000000
             });
 
-            Players.Add(new Player { UserId = user.Id, Name = "John Doe", Money = 100 });
-            Players.Add(new Player { UserId = user.Id, Name = "John Francks", Money = 100000, Experience = 2000 });
-            Players.Add(new Player { UserId = user.Id, Name = "Luc Doleman", Money = 500, Experience = 5 });
-            Players.Add(new Player { UserId = user.Id, Name = "Emilio Fratilleci", Money = 12345, Experience = 200 });
+            Players.Add(new Player { UserId = user.Id, Name = "Frank Booze", Money = 100 });
+            Players.Add(new Player { UserId = user.Id, Name = "Marie Shots", Money = 1000, Experience = 200 });
+            Players.Add(new Player { UserId = user.Id, Name = "Jack Wasted", Money = 500, Experience = 5 });
+            Players.Add(new Player { UserId = user.Id, Name = "Julie Baller", Money = 12345, Experience = 2000 });
 
             SaveChanges();
         }
 
         private void GeneratePositiveGameEvents()
         {
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Nothing but boring rocks", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "The biggest Opal you ever saw.", Description = "It slips out of your hands and rolls inside a crack in the floor. It is out of reach.", Probability = 500 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Sand, dirt and dust", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "A piece of empty paper", Description = "You hold it to the light and warm it up to reveal secret texts, but it remains empty.", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "A small water stream", Description = "The water flows around your feet and creates a dirty puddle.", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Junk", Money = 1, Experience = 1, Probability = 2000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Murphy's idea bin", Money = 1, Experience = 1, Probability = 300 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Donald's book of excuses", Money = 1, Experience = 1, Probability = 300 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Baileys", Probability = 1000 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Beerenburg", Description = "It slips out of your hands and rolls inside a crack in the floor. It is out of reach.", Probability = 500 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Campari", Probability = 1000 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Cointreau", Description = "You hold it to the light and warm it up to reveal secret texts, but it remains empty.", Probability = 1000 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Créme de Cassis", Description = "The water flows around your feet and creates a dirty puddle.", Probability = 1000 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Galliano", Money = 1, Experience = 1, Probability = 2000 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Jägermeister", Money = 1, Experience = 1, Probability = 300 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Limoncello", Money = 1, Experience = 1, Probability = 300 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "Children's Treasure Map", Money = 1, Experience = 1, Probability = 300 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Trinket", Money = 5, Experience = 3, Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Old Tool", Money = 10, Experience = 5, Probability = 800 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Old Equipment", Money = 10, Experience = 5, Probability = 800 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Ornate Shell", Money = 10, Experience = 5, Probability = 800 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Fossil", Money = 12, Experience = 6, Probability = 700 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Cave Shroom", Money = 20, Experience = 8, Probability = 650 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Artifact", Money = 30, Experience = 10, Probability = 500 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Scrap Metal", Money = 50, Experience = 13, Probability = 400 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Jewelry", Money = 60, Experience = 15, Probability = 400 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Peculiar Mask", Money = 100, Experience = 40, Probability = 350 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Quartz Geode", Money = 140, Experience = 50, Probability = 300 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Ancient Weapon", Money = 160, Experience = 80, Probability = 300 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Ancient Instrument", Money = 160, Experience = 80, Probability = 300 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Ancient Texts", Money = 180, Experience = 80, Probability = 300 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Gemstone", Money = 300, Experience = 100, Probability = 110 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Mysterious Potion", Money = 300, Experience = 100, Probability = 80 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Meteorite", Money = 400, Experience = 150, Probability = 200 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Ancient Bust", Money = 500, Experience = 150, Probability = 150 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Buried Treasure", Money = 1000, Experience = 200, Probability = 100 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Alien DNA", Money = 60000, Experience = 1500, Probability = 5 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Rare Collector's Item", Money = 3000, Experience = 400, Probability = 30 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Pure Gold", Money = 2000, Experience = 350, Probability = 30 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Safe Deposit Box Key", Money = 20000, Experience = 1000, Probability = 10 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Advanced Bio Tech", Money = 30000, Experience = 1500, Probability = 10 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Malibu", Money = 5, Experience = 3, Probability = 1000 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Passoa", Money = 10, Experience = 5, Probability = 800 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Pisang Ambon", Money = 10, Experience = 5, Probability = 800 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Rum", Money = 10, Experience = 5, Probability = 800 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Safari", Money = 12, Experience = 6, Probability = 700 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Sambuca", Money = 20, Experience = 8, Probability = 650 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Sherry", Money = 30, Experience = 10, Probability = 500 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Southern Comfort", Money = 50, Experience = 13, Probability = 400 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Tequila", Money = 60, Experience = 15, Probability = 400 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Tia Maria", Money = 100, Experience = 40, Probability = 350 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Triple Sec", Money = 140, Experience = 50, Probability = 300 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Gin Tonic", Money = 160, Experience = 80, Probability = 300 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Kasteelbier Rouge", Money = 160, Experience = 80, Probability = 300 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Jupiler", Money = 180, Experience = 80, Probability = 300 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Apple Cider", Money = 300, Experience = 100, Probability = 110 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Single malt whiskey", Money = 300, Experience = 100, Probability = 80 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Fireman Shot", Money = 400, Experience = 150, Probability = 200 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Boswandeling", Money = 500, Experience = 150, Probability = 150 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Pornstar Martini", Money = 1000, Experience = 200, Probability = 100 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Calvados", Money = 60000, Experience = 1500, Probability = 5 });
         }
 
         public void GenerateNegativeGameEvents()
         {
             NegativeGameEvents.Add(new NegativeGameEvent
             {
-                Name = "Rockfall",
-                Description = "As you are mining, the cave walls rumble and rocks tumble down on you",
-                DefenseWithGearDescription = "Your mining gear allows you and your tools to escape unscathed",
-                DefenseWithoutGearDescription = "You try to cover your face but the rocks are too heavy. That hurt!",
+                Name = "Unintelligible",
+                Description = "When you address the bartender, he clearly does not want to serve you in this condition",
+                DefenseWithGearDescription = "Luckily you built up some reputation, no one saw this embarrassing moment",
+                DefenseWithoutGearDescription = "You hear people laughing at you behind your back. U lost some energy!",
                 DefenseLoss = 2,
                 Probability = 100
             });
             NegativeGameEvents.Add(new NegativeGameEvent
             {
-                Name = "Cave Rat",
-                Description = "As you are mining, you feel something scurry between your feet!",
-                DefenseWithGearDescription = "It tries to bite you, but your mining gear keeps the rat's teeth from sinking in.",
-                DefenseWithoutGearDescription = "It tries to bite you and nicks you in the ankles. It already starts to glow dangerously.",
+                Name = "Clumsy Clown",
+                Description = "When you walk to the bartender to order your next random drink you fall over the barstool",
+                DefenseWithGearDescription = "A sympathetic young lady helps you up, fortunately you have a high reputation",
+                DefenseWithoutGearDescription = "No one wants to pick up someone with your reputation, you climb up on your own. U lost some energy!",
                 DefenseLoss = 3,
                 Probability = 50
             });
             NegativeGameEvents.Add(new NegativeGameEvent
             {
-                Name = "Sinkhole",
-                Description = "As you are mining, the ground suddenly gives way and you fall down into a chasm!",
-                DefenseWithGearDescription = "Your gear grants a safe landing, protecting you and your pickaxe.",
-                DefenseWithoutGearDescription = "You tumble down the dark hole and take a really bad landing. That hurt!",
+                Name = "Bad Casanova",
+                Description = "You're trying to treat a person at the bar, but this person doesn't want anything to do with you",
+                DefenseWithGearDescription = "Someone with your reputation will not lose heart because of this and will look for the next victim",
+                DefenseWithoutGearDescription = "the whole bar heard your blunder, this is embarrassing. U lost some energy!",
                 DefenseLoss = 2,
                 Probability = 100
             });
             NegativeGameEvents.Add(new NegativeGameEvent
             {
-                Name = "Ancient Bacteria",
-                Description = "As you are mining, you uncover a green slime oozing from the cracks!",
-                DefenseWithGearDescription = "Your gear barely covers you from the noxious goop. You are safe.",
-                DefenseWithoutGearDescription = "The slime covers your hands and arms and starts biting through your flesh. This hurts!",
+                Name = "Puke Warning",
+                Description = "When you order a new drink from the bartender you feel something coming up from your stomach",
+                DefenseWithGearDescription = "The bartender is quick enough to give you a bucket in time, so you make it to the toilets without anyone noticing",
+                DefenseWithoutGearDescription = "You throw up on the bar, everyone looks at you and the party at the bar jumps off their bar stools. U lost some energy",
                 DefenseLoss = 3,
                 Probability = 50
             });
@@ -150,30 +146,30 @@ namespace ActionCommandGame.Repository
 
         private void GenerateAttackItems()
         {
-            Items.Add(new Item { Name = "Basic Pickaxe", Attack = 50, Price = 50 });
-            Items.Add(new Item { Name = "Enhanced Pick", Attack = 300, Price = 300 });
-            Items.Add(new Item { Name = "Turbo Pick", Attack = 500, Price = 500 });
-            Items.Add(new Item { Name = "Mithril Warpick", Attack = 5000, Price = 15000 });
-            Items.Add(new Item { Name = "Thor's Hammer", Attack = 50, Price = 1000000 });
+            Items.Add(new Item { Name = "Glass of water", Attack = 50, Price = 50 });
+            Items.Add(new Item { Name = "Dafalgan Forte", Attack = 300, Price = 300 });
+            Items.Add(new Item { Name = "Mocktail", Attack = 500, Price = 500 });
+            Items.Add(new Item { Name = "Coca-Cola", Attack = 5000, Price = 15000 });
+            Items.Add(new Item { Name = "Puke-break", Attack = 50, Price = 1000000 });
         }
 
         private void GenerateDefenseItems()
         {
-            Items.Add(new Item { Name = "Torn Clothes", Defense = 20, Price = 20 });
-            Items.Add(new Item { Name = "Hardened Leather Gear", Defense = 150, Price = 200 });
-            Items.Add(new Item { Name = "Iron plated Armor", Defense = 500, Price = 1000 });
-            Items.Add(new Item { Name = "Rock Shield", Defense = 2000, Price = 10000 });
-            Items.Add(new Item { Name = "Emerald Shield", Defense = 2000, Price = 10000 });
-            Items.Add(new Item { Name = "Diamond Shield", Defense = 20000, Price = 10000 });
+            Items.Add(new Item { Name = "Golden Lighter", Defense = 20, Price = 20 });
+            Items.Add(new Item { Name = "Louis Vuitton bag", Defense = 150, Price = 200 });
+            Items.Add(new Item { Name = "Leather jacket", Defense = 500, Price = 1000 });
+            Items.Add(new Item { Name = "Louboutin", Defense = 2000, Price = 10000 });
+            Items.Add(new Item { Name = "Patek Philippe watch", Defense = 2000, Price = 10000 });
+            Items.Add(new Item { Name = "Tournée Générale", Defense = 20000, Price = 10000 });
         }
 
         private void GenerateFoodItems()
         {
             Items.Add(new Item { Name = "Apple", ActionCooldownSeconds = 50, Fuel = 4, Price = 8 });
             Items.Add(new Item { Name = "Energy Bar", ActionCooldownSeconds = 45, Fuel = 5, Price = 10 });
-            Items.Add(new Item { Name = "Field Rations", ActionCooldownSeconds = 30, Fuel = 30, Price = 300 });
-            Items.Add(new Item { Name = "Abbye cheese", ActionCooldownSeconds = 25, Fuel = 100, Price = 500 });
-            Items.Add(new Item { Name = "Abbye Beer", ActionCooldownSeconds = 25, Fuel = 100, Price = 500 });
+            Items.Add(new Item { Name = "Bowl of nachos", ActionCooldownSeconds = 30, Fuel = 30, Price = 300 });
+            Items.Add(new Item { Name = "Pizza", ActionCooldownSeconds = 25, Fuel = 100, Price = 500 });
+            Items.Add(new Item { Name = "Pitta", ActionCooldownSeconds = 25, Fuel = 100, Price = 500 });
             Items.Add(new Item { Name = "Celestial Burrito", ActionCooldownSeconds = 15, Fuel = 500, Price = 10000 });
 #if DEBUG
             Items.Add(new Item { Name = "Developer Food", ActionCooldownSeconds = 1, Fuel = 1000, Price = 1 });
@@ -182,8 +178,7 @@ namespace ActionCommandGame.Repository
 
         private void GenerateDecorativeItems()
         {
-            Items.Add(new Item { Name = "Balloon", Description = "Does nothing. Do you feel special now?", Price = 10 });
-            Items.Add(new Item { Name = "Blue Medal", Description = "For those who cannot afford the Crown of Flexing.", Price = 100000 });
+            Items.Add(new Item { Name = "Pack of sigarettes", Description = "Kills you faster. Do you feel special now?", Price = 10 });
             Items.Add(new Item { Name = "Crown of Flexing", Description = "Yes, show everyone how much money you are willing to spend on something useless!", Price = 500000 });
         }
 
