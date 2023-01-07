@@ -48,11 +48,12 @@
 					<button class="btn btn-danger" style="position: relative; bottom: 2px; left: 241px; width: 50px;" @onclick="() => DeletePlayer(player.Id)">X</button>
 					<img class="card-img-top smallimg mx-auto" src="@imagesource" alt="Card image cap" style="height: 446px; width: auto; vertical-align: middle;">
 					<ul class="list-group list-group-flush">
-						<li class="list-group-item">Money: @player.Money</li>
+						<li class="list-group-item">Level: @player.GetLevel()</li>
 						<li class="list-group-item">Experience: @player.Experience</li>
+						<li class="list-group-item">Money: @player.Money</li>
 					</ul>
 					<div class="card-body">
-						<h5 class="card-title">@player.Name</h5>
+						<h5 class="card-title" style="font-weight: bold">@player.Name</h5>
 						<button class="btn btn-primary"@onclick="() => SelectPlayer(player.Id)">Play!</button>
 						
 					</div>

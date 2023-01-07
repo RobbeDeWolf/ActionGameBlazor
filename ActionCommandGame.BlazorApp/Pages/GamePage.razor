@@ -40,7 +40,7 @@
 
 <div style="position: absolute; left: 51px; bottom: 364px;">
 	<img style="height: 38px; width: auto" src="../Images/Money.png" alt="Drink Button">
-	<span style="position: absolute; bottom: 10px; right: 12px;">@Money</span>
+	<span style="position: absolute; bottom: 10px; right: 12px; color: white">@Money</span>
 </div>
 
 @if (messages is not null)
@@ -60,7 +60,7 @@
 	{
 		if (message.Code == "NoEnergy")
 		{
-			<div style="position: relative; top: 68px; left: 130px; width: 232px;">
+			<div class="extramessages">
 				<p style="font-size: 12px;">@message.Message</p>
 			</div>
 		}
@@ -68,13 +68,13 @@
 		{
 			if (message.Code == "NoReputation")
 			{
-				<div style="position: relative; top: 68px; left: 130px; width: 232px;">
+				<div class="extramessages">
 					<p style="font-size: 12px;">@message.Message</p>
 				</div>
 			}
 			if (message.Code == "NoSoberness")
 			{
-				<div style="position: relative; top: 68px; left: 130px; width: 232px;">
+				<div class="extramessages">
 					<p style="font-size: 12px;">@message.Message</p>
 				</div>	
 			}
