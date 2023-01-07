@@ -39,6 +39,7 @@
 					<div class="card-body">
 						<h5 class="card-title">@player.Name</h5>
 						<button class="btn btn-primary"@onclick="() => SelectPlayer(player.Id)">Play!</button>
+						<button class="btn btn-danger" @onclick="() => DeletePlayer(player.Id)">Delete Character</button>
 					</div>
 				</div>
 			</div>
@@ -73,6 +74,17 @@
 		memoryStore.CurrentPlayerId = id;
 		navManager.NavigateTo($"/character/{id}");
 
+	}
+
+	public async Task DeletePlayer(int id)
+	{
+		if (id == 0)
+		{
+			return;
+		}
+		await playerApi.Delete(id);
+		var filter = new PlayerFilter { FilterUserPlayers = true };
+		players = await playerApi.Find(filter);
 	}
 
 	private async Task LoadDefaults()

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ActionCommandGame.Model;
 using ActionCommandGame.Repository;
@@ -55,6 +56,26 @@ namespace ActionCommandGame.Services
             await _database.SaveChangesAsync();
 
             return await GetAsync(dbPlayer.Id, authenticatedUserId);
+        }
+
+        public async Task<ServiceResult> DeleteAsync(int id)
+        {
+	        var serviceresult = new ServiceResult();
+	        var player = new Player { Id = id };
+	        _database.Players.Attach(player);
+	        _database.Players.Remove(player);
+	        var changes =await _database.SaveChangesAsync();
+	        if (changes == 0)
+	        {
+		        serviceresult.Messages.Add( new ServiceMessage
+		        {
+                    Code = "NoDelete",
+                    Message = "Nothing changed in the database, delete didnt work"
+		        });
+	        }
+
+	        return serviceresult;
+
         }
 
 	}

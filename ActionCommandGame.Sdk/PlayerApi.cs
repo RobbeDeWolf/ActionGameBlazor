@@ -86,5 +86,25 @@ namespace ActionCommandGame.Sdk
 
         }
 
+        public async Task<ServiceResult> Delete(int id)
+        {
+	        var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
+	        var token = await _tokenStore.GetTokenAsync();
+	        httpClient.AddAuthorization(token);
+	        var route = $"player/delete/{id}";
+
+	        var response = await httpClient.DeleteAsync(route);
+	        response.EnsureSuccessStatusCode();
+
+	        var serviceresult = await response.Content.ReadFromJsonAsync<ServiceResult>();
+
+            if (serviceresult is null)
+            {
+	            return new ServiceResult();
+            }
+
+	        return serviceresult;
+        }
+
     }
 }
