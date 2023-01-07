@@ -23,11 +23,25 @@
 </div>
 @if (players is not null)
 {
+	@if (players.Data.Count < 4)
+	{
+		<div style="position: absolute; top: 20px; left: 50px;">
+			<button class="btn btn-primary" @onclick="CreatePlayerScreen">Create character</button>
+		</div>
+	}
 	<div class="row">
 		<div class="col-2"></div>
 		@foreach (var player in players.Data)
 		{
-			string imagesource = $"../Images/player{player.Name}.png";
+			string imagesource = string.Empty;
+			if (player.Name != "Frank Booze" && player.Name != "Marie Shots" && player.Name != "Jack Wasted" && player.Name != "Julie Baller")
+			{
+				imagesource = $"../Images/playerFrank Booze.png";
+			}
+			else
+			{
+				imagesource = $"../Images/player{player.Name}.png";
+			}
 
 			<div class="col-md-2">
 				<div class="card">
@@ -85,6 +99,11 @@
 		await playerApi.Delete(id);
 		var filter = new PlayerFilter { FilterUserPlayers = true };
 		players = await playerApi.Find(filter);
+	}
+
+	public void CreatePlayerScreen()
+	{
+		navManager.NavigateTo("/createcharacter");
 	}
 
 	private async Task LoadDefaults()

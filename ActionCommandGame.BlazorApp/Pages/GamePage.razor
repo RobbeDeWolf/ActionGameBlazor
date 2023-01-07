@@ -238,9 +238,17 @@
 		playerExperienceForNextLevel = player.GetExperienceForNextLevel();
 		playerexperiencepercentage = (playerExperience * 100) / playerExperienceForNextLevel;
 
-		playerImageSource = $"../Images/player{player.Name}.png";
+		//Default caracters with their images
+		if (player.Name != "Frank Booze" && player.Name != "Marie Shots" && player.Name != "Jack Wasted" && player.Name != "Julie Baller")
+		{
+			playerImageSource = $"../Images/playerFrank Booze.png";
+		}
+		else
+		{
+			playerImageSource = $"../Images/player{player.Name}.png";
+		}
 
-		// check money
+	// check money
 		Money = player.Money;
 	}
 	private void ChangeCharacter()

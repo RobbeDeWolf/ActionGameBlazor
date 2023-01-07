@@ -120,7 +120,14 @@
 		{
 			var playerResult = await playerApi.GetAsync(int.Parse(characterid));
 			var player = playerResult.Data;
-			playerImageSource = $"../Images/player{player.Name}.png";
+			if (player.Name != "Frank Booze" && player.Name != "Marie Shots" && player.Name != "Jack Wasted" && player.Name != "Julie Baller")
+			{
+				playerImageSource = $"../Images/playerFrank Booze.png";
+			}
+			else
+			{
+				playerImageSource = $"../Images/player{player.Name}.png";
+			}
 			playerMoney = player.Money;
 		}
 		return base.OnInitializedAsync();
