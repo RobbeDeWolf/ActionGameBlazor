@@ -10,8 +10,10 @@
 		background-image: url(../Images/Background_bar.jpg);
 	}
 </style>
-<div>
-	<button @onclick="CharacterSelection">Go back</button>
+<div style="position: absolute; left: 26px; top: 31px; width: 290px;">
+	<button class="shopbtn" @onclick="CharacterSelection">
+		<img style="height:58px; width: auto" src="../Images/Button_Shop_Back.png" alt="Drink Button">
+	</button>
 </div>
 <EditForm Model="newPlayer" OnValidSubmit="ValidSubmit">
 	<DataAnnotationsValidator></DataAnnotationsValidator>

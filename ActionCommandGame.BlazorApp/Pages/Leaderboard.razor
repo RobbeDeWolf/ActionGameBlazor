@@ -1,0 +1,13 @@
+﻿@page "/Leaderboard/{characterid}"
+@inject NavigationManager NavManager
+<button class="btn btn-primary" @onclick="backtogame"></button>
+
+@code
+{
+	[Parameter]
+	public string? characterid { get; set; }
+	private void backtogame()
+	{
+		NavManager.NavigateTo($"/character/{characterid}");
+	}
+}
