@@ -51,6 +51,10 @@
 		{
 			<p>@gameEventDescription</p>
 		}
+		@if (!string.IsNullOrWhiteSpace(defenseEventDescription))
+		{
+			<p>@defenseEventDescription</p>
+		}
 	</div>
 	foreach (var message in messages)
 	{
@@ -122,6 +126,7 @@
 	private string gameEventDescription { get; set; }
 	private int MoneyAdded { get; set; }
 	private bool LevelUpPopup = false;
+	private string defenseEventDescription { get; set; }
 
 	protected async override Task<Task> OnInitializedAsync()
 	{
@@ -144,7 +149,7 @@
 		var player = result.Data.Player;
 		var positiveGameEvent = result.Data.PositiveGameEvent;
 		var negativeGameEvent = result.Data.NegativeGameEvent;
-
+		defenseEventDescription = string.Empty;
 		if (positiveGameEvent != null)
 		{
 			gameEventName = positiveGameEvent.Name;
@@ -175,6 +180,14 @@
 			else
 			{
 				gameEventDescription = string.Empty;
+			}
+			if (player.RemainingDefense > 0)
+			{
+				defenseEventDescription = negativeGameEvent.DefenseWithGearDescription;
+			}
+			else
+			{
+				defenseEventDescription = negativeGameEvent.DefenseWithoutGearDescription;
 			}
 			//result.Data.NegativeGameEventMessages
 		}
