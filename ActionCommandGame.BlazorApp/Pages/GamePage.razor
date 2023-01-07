@@ -58,6 +58,27 @@
 	</div>
 	foreach (var message in messages)
 	{
+		if (message.Code == "NoEnergy")
+		{
+			<div style="position: relative; top: 68px; left: 130px; width: 232px;">
+				<p style="font-size: 12px;">@message.Message</p>
+			</div>
+		}
+		else
+		{
+			if (message.Code == "NoReputation")
+			{
+				<div style="position: relative; top: 68px; left: 130px; width: 232px;">
+					<p style="font-size: 12px;">@message.Message</p>
+				</div>
+			}
+			if (message.Code == "NoSoberness")
+			{
+				<div style="position: relative; top: 68px; left: 130px; width: 232px;">
+					<p style="font-size: 12px;">@message.Message</p>
+				</div>	
+			}
+		}
 		if (message.Code =="Cooldown")
 		{
 			<div class="box sb3">
@@ -73,7 +94,7 @@
 	</button>
 </div>
 
-<div>
+<div style="position: absolute; bottom: 50px; left: 50px;">
 	<button class="btn btn-primary" @onclick="ChangeCharacter">Change Character</button>
 </div>
 <div style="position: absolute; right: 47px; top: 168px; width: 290px; transform: rotate(23deg);">
@@ -189,7 +210,7 @@
 			{
 				defenseEventDescription = negativeGameEvent.DefenseWithoutGearDescription;
 			}
-			//result.Data.NegativeGameEventMessages
+
 		}
 		messages = result.Messages;
 		await checkLevelUp(messages);
@@ -251,7 +272,7 @@
 		playerExperienceForNextLevel = player.GetExperienceForNextLevel();
 		playerexperiencepercentage = (playerExperience * 100) / playerExperienceForNextLevel;
 
-		//Default caracters with their images
+	//Default caracters with their images
 		if (player.Name != "Frank Booze" && player.Name != "Marie Shots" && player.Name != "Jack Wasted" && player.Name != "Julie Baller")
 		{
 			playerImageSource = $"../Images/playerFrank Booze.png";

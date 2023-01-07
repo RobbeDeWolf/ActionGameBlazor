@@ -347,18 +347,18 @@ namespace ActionCommandGame.Services
 
             if (player.CurrentFuelPlayerItem == null)
             {
-                var infoText = "Playing without food is hard. You need a long time to recover. Consider buying food from the shop.";
-                serviceMessages.Add(new ServiceMessage { Code = "NoFood", Message = infoText, MessagePriority = MessagePriority.Warning });
-            }
+                var infoText = "No Energy! Consider buying energy items for a shorter cooldown.";
+                serviceMessages.Add(new ServiceMessage { Code = "NoEnergy", Message = infoText, MessagePriority = MessagePriority.Warning });
+            } 
             if (player.CurrentAttackPlayerItem == null)
             {
-                var infoText = "Playing without tools is hard. You lost extra fuel. Consider buying tools from the shop.";
-                serviceMessages.Add(new ServiceMessage { Code = "NoTools", Message = infoText, MessagePriority = MessagePriority.Warning });
+                var infoText = "No soberness, you lost extra energy. Buy soberness items from the shop.";
+                serviceMessages.Add(new ServiceMessage { Code = "NoSoberness", Message = infoText, MessagePriority = MessagePriority.Warning });
             }
             if (player.CurrentDefensePlayerItem == null)
             {
-                var infoText = "Playing without gear is hard. You lost extra fuel. Consider buying gear from the shop.";
-                serviceMessages.Add(new ServiceMessage { Code = "NoGear", Message = infoText, MessagePriority = MessagePriority.Warning });
+                var infoText = "No reputation. You lost extra energy. Buy reputation items from the shop.";
+                serviceMessages.Add(new ServiceMessage { Code = "NoReputation", Message = infoText, MessagePriority = MessagePriority.Warning });
             }
 
             return serviceMessages;
