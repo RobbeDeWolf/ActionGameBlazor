@@ -36,5 +36,24 @@ namespace ActionCommandGame.Services
 
             return new ServiceResult<IList<NegativeGameEventResult>>(negativeGameEvents);
         }
-    }
+
+        public async Task<ServiceResult<NegativeGameEventResult>> CreateAsync(NegativeGameEventResult newevent, string authenticatedUserId)
+        {
+	        var dbevent = new NegativeGameEvent
+	        {
+		        Name = newevent.Name,
+		        Description = newevent.Description,
+		        DefenseWithGearDescription = newevent.DefenseWithGearDescription,
+		        DefenseWithoutGearDescription = newevent.DefenseWithoutGearDescription,
+		        DefenseLoss = newevent.DefenseLoss,
+		        Probability = newevent.Probability 
+
+			};
+
+	        _database.NegativeGameEvents.Add(dbevent);
+	        await _database.SaveChangesAsync();
+             // needs checks
+	        return new ServiceResult<NegativeGameEventResult>();
+        }
+	}
 }

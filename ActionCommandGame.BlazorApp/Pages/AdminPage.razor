@@ -1,5 +1,6 @@
 ﻿@page "/admin/{characterid}"
 @using ActionCommandGame.Services.Model.Results
+@attribute [Authorize]
 @inject NavigationManager NavManager
 @inject IItemApi itemApi
 
@@ -69,6 +70,8 @@
 	</table>
 </div>
 <button class="btn btn-primary" @onclick="CreateItemView">Create a new item</button>
+<button class="btn btn-primary"@onclick="CreateNegativeEvent">Create a negative game event</button>
+<button class="btn btn-primary" @onclick="CreatePositiveEvent">Create a negative game event</button>
 @code{
 
 	[Parameter]
@@ -94,6 +97,15 @@
 	private void CreateItemView()
 	{
 		NavManager.NavigateTo($"/createItem/{characterid}");
+	}
+
+	private void CreateNegativeEvent()
+	{
+		NavManager.NavigateTo($"/createNegativeEvent/{characterid}");
+	}
+	private void CreatePositiveEvent()
+	{
+		NavManager.NavigateTo($"/createPositiveEvent/{characterid}");
 	}
 
 	private async Task Delete(int itemid)

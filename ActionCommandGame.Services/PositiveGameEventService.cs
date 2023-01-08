@@ -40,6 +40,23 @@ namespace ActionCommandGame.Services
 
             return new ServiceResult<PositiveGameEventResult>(randomEvent);
         }
-        
+
+        public async Task<ServiceResult<PositiveGameEventResult>> CreateAsync(PositiveGameEventResult newevent, string authenticatedUserId)
+        {
+	        var dbevent = new PositiveGameEvent
+			{
+		        Name = newevent.Name,
+		        Description = newevent.Description,
+		        Money = newevent.Money,
+		        Probability = newevent.Probability,
+                Experience = newevent.Experience
+
+	        };
+
+	        _database.PositiveGameEvents.Add(dbevent);
+	        await _database.SaveChangesAsync();
+	        // needs checks
+	        return new ServiceResult<PositiveGameEventResult>();
+        }
     }
 }

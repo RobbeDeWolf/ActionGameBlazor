@@ -7,5 +7,9 @@ namespace ActionCommandGame.Sdk.Abstractions
     {
         Task<ServiceResult<GameResult>> PerformActionAsync(int playerId);
         Task<ServiceResult<BuyResult>> BuyAsync(int playerId, int itemId);
+        Task<ServiceResult<NegativeGameEventResult>> CreateNegativeEvent(NegativeGameEventResult newnegEvent);
+        Task<ServiceResult<PositiveGameEventResult>> CreatePositiveEvent(PositiveGameEventResult newnegEvent);
+
+
     }
 }

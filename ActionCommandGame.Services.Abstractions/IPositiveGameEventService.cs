@@ -7,5 +7,8 @@ namespace ActionCommandGame.Services.Abstractions
     public interface IPositiveGameEventService
     {
         Task<ServiceResult<PositiveGameEventResult>> GetRandomPositiveGameEvent(bool hasAttackItem, string authenticatedUserId);
+
+        Task<ServiceResult<PositiveGameEventResult>> CreateAsync(PositiveGameEventResult newevent, string authenticatedUserId);
+
     }
 }

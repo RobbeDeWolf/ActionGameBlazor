@@ -58,5 +58,44 @@ namespace ActionCommandGame.Sdk
 
             return result;
         }
-    }
+
+        public async Task<ServiceResult<NegativeGameEventResult>> CreateNegativeEvent(NegativeGameEventResult newnegEvent)
+        {
+	        var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
+	        var token = await _tokenStore.GetTokenAsync();
+	        httpClient.AddAuthorization(token);
+	        var route = "events/Negative";
+
+	        var httpResponse = await httpClient.PostAsJsonAsync(route, newnegEvent);
+	        httpResponse.EnsureSuccessStatusCode();
+
+	        var result = await httpResponse.Content.ReadFromJsonAsync<ServiceResult<NegativeGameEventResult>>();
+
+	        if (result is null)
+	        {
+		        return new ServiceResult<NegativeGameEventResult>();
+	        }
+	        return result;
+
+        }
+        public async Task<ServiceResult<PositiveGameEventResult>> CreatePositiveEvent(PositiveGameEventResult newnegEvent)
+        {
+	        var httpClient = _httpClientFactory.CreateClient("ActionCommandGame");
+	        var token = await _tokenStore.GetTokenAsync();
+	        httpClient.AddAuthorization(token);
+	        var route = "events/Positive";
+
+	        var httpResponse = await httpClient.PostAsJsonAsync(route, newnegEvent);
+	        httpResponse.EnsureSuccessStatusCode();
+
+	        var result = await httpResponse.Content.ReadFromJsonAsync<ServiceResult<PositiveGameEventResult>>();
+
+	        if (result is null)
+	        {
+		        return new ServiceResult<PositiveGameEventResult>();
+	        }
+	        return result;
+
+        }
+	}
 }

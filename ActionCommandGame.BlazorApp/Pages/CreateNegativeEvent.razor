@@ -1,0 +1,71 @@
+﻿@page "/createNegativeEvent/{characterid}"
+@using ActionCommandGame.Services.Model.Results
+@inject NavigationManager NavManager
+@inject IGameApi GameApi
+
+<button class="btn btn-primary" @onclick="GoBack">Back</button>
+
+<EditForm Model="newevent" OnValidSubmit="ValidSubmit">
+	<DataAnnotationsValidator></DataAnnotationsValidator>
+	<ValidationSummary></ValidationSummary>
+	<div class="container py-5 h-100">
+		<div class="row d-flex justify-content-center align-items-center h-100">
+			<div class="col-12 col-md-8 col-lg-6 col-xl-5">
+				<div class="card bg-dark text-white" style="border-radius: 1rem;">
+					<div class="card-body p-5 text-center">
+
+						<div class="mb-md-5 mt-md-4 pb-5">
+
+							<h2 class="fw-bold mb-2 text-uppercase">New negative game Event</h2>
+							<p class="text-white-50 mb-5">Please enter the stats of the new negative event</p>
+							<div class="form-outline form-white mb-4">
+								<label class="form-label" for="typeEmailX" style="position: relative; bottom: 10px;">Name</label>
+								<input class="form-control form-control-lg" @bind="@newevent.Name" />
+							</div>
+							<div class="form-outline form-white mb-4">
+								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Description</label>
+								<input class="form-control form-control-lg" @bind="@newevent.Description" />
+							</div>
+							<div class="form-outline form-white mb-4">
+								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Message when soberness isnt empty</label>
+								<input class="form-control form-control-lg" @bind="@newevent.DefenseWithGearDescription" />
+							</div>
+							<div class="form-outline form-white mb-4">
+								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Message empty soberness</label>
+								<input class="form-control form-control-lg" @bind="@newevent.DefenseWithoutGearDescription" />
+							</div>
+							<div class="form-outline form-white mb-4">
+								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Loss of soberness</label>
+								<input class="form-control form-control-lg" @bind="@newevent.DefenseLoss" />
+							</div>
+							<div class="form-outline form-white mb-4">
+								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Probability of happening</label>
+								<input class="form-control form-control-lg" @bind="@newevent.Probability" />
+							</div>
+							<button class="btn btn-outline-light btn-lg px-5" type="submit">Save</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</EditForm>
+
+@code
+{
+	[Parameter]
+	public string? characterid { get; set; }
+
+	NegativeGameEventResult newevent { get; set; } = new NegativeGameEventResult();
+
+	private void GoBack()
+	{
+		NavManager.NavigateTo($"/admin/{characterid}");
+	}
+
+	private async Task ValidSubmit()
+	{
+		await GameApi.CreateNegativeEvent(newevent);
+		GoBack();
+	}
+}
