@@ -216,3 +216,13 @@ th {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+.leaderboardTable {
+    border-radius: 25px;
+    background-color: white;
+    width: 500px;
+    position: fixed;
+    top: 34%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}

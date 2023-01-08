@@ -1,13 +1,75 @@
 ﻿@page "/Leaderboard/{characterid}"
+@using ActionCommandGame.Services.Model.Filters
+@using ActionCommandGame.Services.Model.Results
 @inject NavigationManager NavManager
-<button class="btn btn-primary" @onclick="backtogame"></button>
+@inject IPlayerApi PlayerApi
+
+<style>
+	.page {
+		background: url(../Images/Leaderboard_Background.jpg) no-repeat center center fixed;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+</style>
+<div style="position: absolute; left: 19px; top: 29px; width: 290px;">
+	<button class="shopbtn" @onclick="backtogame">
+		<img style="height:67px; width: auto" src="../Images/Button_Shop_Back.png" alt="Drink Button">
+	</button>
+</div>
+@if (Players is not null)
+{
+	<div class="leaderboardTable">
+		<table>
+			<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th scope="col">Level</th>
+				<th scope="col">Experience</th>
+				<th scope="col">Money</th>
+			</tr>
+			</thead>
+			<tbody>
+			@foreach (var player in Players)
+			{
+				<tr>
+					<th scope="row">@i</th>
+					<td>@player.Name</td>
+					<td>@player.GetLevel()</td>
+					<td>@player.Experience</td>
+					<td>@player.Money</td>
+				</tr>
+				i++;
+			}
+			</tbody>
+		</table>
+	</div>
+}
 
 @code
 {
 	[Parameter]
 	public string? characterid { get; set; }
+
+	private int i = 1;
+
+	private IList<PlayerResult> Players { get; set; }
 	private void backtogame()
 	{
 		NavManager.NavigateTo($"/character/{characterid}");
+	}
+
+	protected override async Task<Task> OnInitializedAsync()
+	{
+		await LoadData();
+		return base.OnInitializedAsync();
+	}
+
+	public async Task LoadData()
+	{
+		var result = await PlayerApi.Find(new PlayerFilter { FilterUserPlayers = true });
+		Players = result.Data.OrderByDescending(a => a.Experience).ToList();
 	}
 }
