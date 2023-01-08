@@ -1,9 +1,14 @@
 ﻿@page "/createPositiveEvent/{characterid}"
 @using ActionCommandGame.Services.Model.Results
+@attribute [Authorize]
 @inject NavigationManager NavManager
 @inject IGameApi GameApi
-
 <button class="btn btn-primary" @onclick="GoBack">Back</button>
+<style>
+	.page {
+		background-color: white;
+	}
+</style>
 
 <EditForm Model="newevent" OnValidSubmit="ValidSubmit">
 	<DataAnnotationsValidator></DataAnnotationsValidator>
@@ -13,13 +18,12 @@
 			<div class="col-12 col-md-8 col-lg-6 col-xl-5">
 				<div class="card bg-dark text-white" style="border-radius: 1rem;">
 					<div class="card-body p-5 text-center">
-
 						<div class="mb-md-5 mt-md-4 pb-5">
 
 							<h2 class="fw-bold mb-2 text-uppercase">New positive game Event</h2>
 							<p class="text-white-50 mb-5">Please enter the stats of the new positive event</p>
 							<div class="form-outline form-white mb-4">
-								<label class="form-label" for="typeEmailX" style="position: relative; bottom: 10px;">Name</label>
+								<label class="form-label" style="position: relative; bottom: 10px;">Name</label>
 								<input class="form-control form-control-lg" @bind="@newevent.Name" />
 							</div>
 							<div class="form-outline form-white mb-4">
@@ -27,15 +31,15 @@
 								<input class="form-control form-control-lg" @bind="@newevent.Description" />
 							</div>
 							<div class="form-outline form-white mb-4">
-								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Money added</label>
+								<label class="form-label" style="position: relative; bottom: 10px;">Money added</label>
 								<input class="form-control form-control-lg" @bind="@newevent.Money" />
 							</div>
 							<div class="form-outline form-white mb-4">
-								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Experience gained</label>
+								<label class="form-label" style="position: relative; bottom: 10px;">Experience gained</label>
 								<input class="form-control form-control-lg" @bind="@newevent.Experience" />
 							</div>
 							<div class="form-outline form-white mb-4">
-								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Probability of happening</label>
+								<label class="form-label" style="position: relative; bottom: 10px;">Probability of happening</label>
 								<input class="form-control form-control-lg" @bind="@newevent.Probability" />
 							</div>
 							<button class="btn btn-outline-light btn-lg px-5" type="submit">Save</button>

@@ -1,9 +1,10 @@
 ﻿@page "/createItem/{characterid}"
 @using ActionCommandGame.Services.Model.Results
+@attribute [Authorize]
 @inject NavigationManager NavManager
 @inject IItemApi itemApi
 
-<button @onclick="back">Back</button>
+<button @onclick="back" class="btn btn-primary">Back</button>
 <EditForm Model="item" OnValidSubmit="ValidSubmit">
 	<DataAnnotationsValidator></DataAnnotationsValidator>
 	<ValidationSummary></ValidationSummary>

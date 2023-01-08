@@ -74,14 +74,14 @@ namespace ActionCommandGame.Repository
         private void GeneratePositiveGameEvents()
         {
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "Baileys", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Beerenburg", Description = "It slips out of your hands and rolls inside a crack in the floor. It is out of reach.", Probability = 500 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Beerenburg", Probability = 500 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "Campari", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Cointreau", Description = "You hold it to the light and warm it up to reveal secret texts, but it remains empty.", Probability = 1000 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Créme de Cassis", Description = "The water flows around your feet and creates a dirty puddle.", Probability = 1000 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Cointreau", Probability = 1000 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Créme de Cassis", Probability = 1000 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "Galliano", Money = 1, Experience = 1, Probability = 2000 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "Jägermeister", Money = 1, Experience = 1, Probability = 300 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "Limoncello", Money = 1, Experience = 1, Probability = 300 });
-            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Children's Treasure Map", Money = 1, Experience = 1, Probability = 300 });
+            PositiveGameEvents.Add(new PositiveGameEvent { Name = "Wodka", Money = 1, Experience = 1, Probability = 300 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "Malibu", Money = 5, Experience = 3, Probability = 1000 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "Passoa", Money = 10, Experience = 5, Probability = 800 });
             PositiveGameEvents.Add(new PositiveGameEvent { Name = "Pisang Ambon", Money = 10, Experience = 5, Probability = 800 });
@@ -149,8 +149,8 @@ namespace ActionCommandGame.Repository
             Items.Add(new Item { Name = "Glass of water", Attack = 50, Price = 50 });
             Items.Add(new Item { Name = "Dafalgan Forte", Attack = 300, Price = 300 });
             Items.Add(new Item { Name = "Mocktail", Attack = 500, Price = 500 });
-            Items.Add(new Item { Name = "Coca-Cola", Attack = 5000, Price = 15000 });
-            Items.Add(new Item { Name = "Puke-break", Attack = 50, Price = 1000000 });
+            Items.Add(new Item { Name = "Coca-Cola", Attack = 5000, Price = 1500 });
+            Items.Add(new Item { Name = "Puke-break", Attack = 50, Price = 10000 });
         }
 
         private void GenerateDefenseItems()

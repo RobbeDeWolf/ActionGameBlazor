@@ -7,7 +7,13 @@
 @inject ITokenStore TokenStore
 @inject NavigationManager NavigationManager
 @inject TokenAuthenticationStateProvider AuthenticationStateProvider
-
+<style>
+	.page {
+		height: 100vh;
+		background-image: url(../Images/Login_wallpaper.jpg);
+		background-size: cover;
+	}
+</style>
 <EditForm Model="SignInRequest" OnValidSubmit="ValidSubmit">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>

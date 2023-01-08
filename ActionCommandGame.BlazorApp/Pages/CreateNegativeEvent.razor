@@ -1,5 +1,6 @@
 ﻿@page "/createNegativeEvent/{characterid}"
 @using ActionCommandGame.Services.Model.Results
+@attribute [Authorize]
 @inject NavigationManager NavManager
 @inject IGameApi GameApi
 
@@ -23,23 +24,23 @@
 								<input class="form-control form-control-lg" @bind="@newevent.Name" />
 							</div>
 							<div class="form-outline form-white mb-4">
-								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Description</label>
+								<label class="form-label" style="position: relative; bottom: 10px;">Description</label>
 								<input class="form-control form-control-lg" @bind="@newevent.Description" />
 							</div>
 							<div class="form-outline form-white mb-4">
-								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Message when soberness isnt empty</label>
+								<label class="form-label" style="position: relative; bottom: 10px;">Message when soberness isnt empty</label>
 								<input class="form-control form-control-lg" @bind="@newevent.DefenseWithGearDescription" />
 							</div>
 							<div class="form-outline form-white mb-4">
-								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Message empty soberness</label>
+								<label class="form-label" style="position: relative; bottom: 10px;">Message empty soberness</label>
 								<input class="form-control form-control-lg" @bind="@newevent.DefenseWithoutGearDescription" />
 							</div>
 							<div class="form-outline form-white mb-4">
-								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Loss of soberness</label>
+								<label class="form-label" style="position: relative; bottom: 10px;">Loss of soberness</label>
 								<input class="form-control form-control-lg" @bind="@newevent.DefenseLoss" />
 							</div>
 							<div class="form-outline form-white mb-4">
-								<label class="form-label" for="typePasswordX" style="position: relative; bottom: 10px;">Probability of happening</label>
+								<label class="form-label" style="position: relative; bottom: 10px;">Probability of happening</label>
 								<input class="form-control form-control-lg" @bind="@newevent.Probability" />
 							</div>
 							<button class="btn btn-outline-light btn-lg px-5" type="submit">Save</button>
