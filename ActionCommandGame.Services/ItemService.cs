@@ -45,6 +45,7 @@ namespace ActionCommandGame.Services
 				Defense = item.Defense,
                 Attack = item.Attack,
 				Price = item.Price,
+                Fuel = item.Fuel,
                 Description = item.Description
 	        };
 
@@ -52,6 +53,17 @@ namespace ActionCommandGame.Services
 	        await _dbContext.SaveChangesAsync();
 
 	        return await GetAsync(dbItem.Id, authenticatedUserId);
+        }
+        public async Task<ServiceResult> DeleteAsync(int id)
+        {
+	        var serviceresult = new ServiceResult();
+	        var item = new Item { Id = id };
+	        _dbContext.Items.Attach(item);
+	        _dbContext.Items.Remove(item);
+	        await _dbContext.SaveChangesAsync();
+	       
+	        return serviceresult;
+
         }
 	}
 }

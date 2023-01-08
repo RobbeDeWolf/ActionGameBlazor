@@ -62,15 +62,13 @@
 				<td>@item.Price</td>
 				<td>
 					<button class="btn btn-danger" @onclick="() => Delete(item.Id)">Delete</button>
-					<button class="btn btn-primary" @onclick="() => Update(item.Id)">Delete</button>
 				</td>
 			</tr>
 		}
 		</tbody>
 	</table>
-	<button class="btn btn-primary" @onclick="CreateItemView">Create a new item</button>
 </div>
-
+<button class="btn btn-primary" @onclick="CreateItemView">Create a new item</button>
 @code{
 
 	[Parameter]
@@ -100,12 +98,17 @@
 
 	private async Task Delete(int itemid)
 	{
-
-	}
-
-	private async Task Update(int itemid)
-	{
-
+		if (itemid == 0)
+		{
+			return;
+		}
+		await itemApi.Delete(itemid);
+		var shopItems = await itemApi.FindAsync();
+		items = new List<ItemResult>();
+		foreach (var item in shopItems.Data)
+		{
+			items.Add(item);
+		}
 	}
 
 }
