@@ -23,8 +23,8 @@ namespace ActionCommandGame.Api.Controllers
         [HttpPost("items")]
         public async Task<IActionResult> Create(ItemResult item)
         {
-	        var newplayer = await _itemService.CreateAsync(item, User.GetId());
-	        return Ok(newplayer);
+	        var newitem = await _itemService.CreateAsync(item, User.GetId());
+	        return Ok(newitem);
         }
         [HttpDelete("items/delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)

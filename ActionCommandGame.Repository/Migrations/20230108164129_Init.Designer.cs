@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ActionCommandGame.Repository.Migrations
 {
     [DbContext(typeof(ActionCommandGameDbContext))]
-    [Migration("20230108154150_Init")]
+    [Migration("20230108164129_Init")]
     partial class Init
     {
         /// <inheritdoc />
