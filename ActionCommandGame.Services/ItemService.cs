@@ -37,5 +37,21 @@ namespace ActionCommandGame.Services
 
             return new ServiceResult<IList<ItemResult>>(items);
         }
-    }
+        public async Task<ServiceResult<ItemResult>> CreateAsync(ItemResult item, string authenticatedUserId)
+        {
+	        var dbItem = new Item
+	        {
+				Name = item.Name,
+				Defense = item.Defense,
+                Attack = item.Attack,
+				Price = item.Price,
+                Description = item.Description
+	        };
+
+	        _dbContext.Items.Add(dbItem);
+	        await _dbContext.SaveChangesAsync();
+
+	        return await GetAsync(dbItem.Id, authenticatedUserId);
+        }
+	}
 }

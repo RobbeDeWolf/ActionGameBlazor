@@ -1,5 +1,6 @@
 ﻿@page "/character/{characterid}"
 @using ActionCommandGame.Services.Model.Core
+@using ActionCommandGame.Api.Authentication.Model
 @attribute [Authorize]
 @inject IGameApi gameApi
 @inject IPlayerApi playerApi
@@ -14,6 +15,7 @@
 		/*filter: blur(2px);*/
 	}
 </style>
+<button @onclick="AdminPage" class="btn btn-danger">AdminPage</button>
 
 <div style="position: absolute; left: 45px; top: 267px; width: 223px">
 	<span class="progressbarheader">Energy:</span>
@@ -319,5 +321,12 @@
 				StateHasChanged();
 			}
 		}
+	}
+
+
+	// just visible for all acocunts for now
+	private void AdminPage()
+	{
+		navManager.NavigateTo($"/admin/{characterid}");
 	}
 }

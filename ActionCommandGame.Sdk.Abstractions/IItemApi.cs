@@ -6,5 +6,6 @@ namespace ActionCommandGame.Sdk.Abstractions
     public interface IItemApi
     {
         Task<ServiceResult<IList<ItemResult>>> FindAsync();
+        Task<ServiceResult<ItemResult>> Create(ItemResult itemResult);
     }
 }

@@ -1,0 +1,16 @@
+﻿@page "/createItem/{characterid}"
+@inject NavigationManager NavManager
+
+<button @onclick="back">Back</button>
+
+@code{
+
+	[Parameter]
+	public string? characterid { get; set; }
+
+	private void back()
+	{
+		NavManager.NavigateTo($"/admin/{characterid}");
+	}
+
+}
